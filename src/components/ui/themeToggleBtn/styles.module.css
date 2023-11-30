@@ -1,0 +1,33 @@
+.header__toggleTheme {
+	font-size: 16px;
+	border: none;
+	background-color: transparent;
+	text-transform: capitalize;
+}
+
+.header__icon {
+	margin-right: 10px;
+}
+
+.header__icon_faMoon {
+	color: #a2a25f;
+}
+
+.header__icon_faSun {
+	color: #cccf48;
+}
+
+@media (max-width: 500px) {
+	
+	.header__toggleTheme span{
+		display: none;
+	}
+
+	.header__toggleTheme {
+		font-size: 26px;
+	}
+
+	.header__icon {
+		margin-right: 0;
+	}
+}

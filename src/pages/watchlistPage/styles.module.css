@@ -1,0 +1,29 @@
+.wrapper {
+	padding-top: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 50px;
+}
+
+.notFound {
+	min-height: calc(100vh - 90px);
+	background-color: var(--body-color-bcg);
+	color: var(--color-text);
+	text-align: center;
+}
+.notFound__message {
+	font-size: 50px;
+}
+
+.notFound__btn {
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+}
+
+@media (max-width: 500px){
+	.notFound {
+			min-height: calc(100vh - 70px);
+		}
+}

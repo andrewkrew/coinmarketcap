@@ -1,0 +1,11 @@
+.container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	justify-items: center;
+}
+
+@media (max-width: 500px) {
+	/* .notFound {
+			min-height: calc(100vh - 70px);
+		} */
+}

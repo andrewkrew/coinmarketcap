@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+    width: 50%;
+}
+
+.balance {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.value {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.procent {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.profit {
+    text-align: left;
+}
+
+.green {
+    color: white;
+    background-color: green;
+}
+
+.red {
+    color: black;
+    background-color: red;
+}
+

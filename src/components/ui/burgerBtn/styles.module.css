@@ -1,0 +1,42 @@
+.button__burger {
+	width: 50px;
+	height: 50px;
+	padding: 5px;
+	position: absolute;
+	top: 20px;
+	right: 15px;
+	z-index: 2;
+	display: none;
+}
+
+.row {
+	display: block;
+	height: 3px;
+	width: 40px;
+	background-color: var(--color-text);
+	margin: 8px auto 0;
+}
+
+.active .first__row {
+	transform: translateY(10px) rotate(45deg) ;
+}
+
+.active .second__row {
+	opacity: 0;
+}
+
+.active .third__row {
+	transform: translateY(-10px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+	.button__burger {
+		display: block;
+	}
+}
+
+@media (max-width: 500px) {
+	.button__burger {
+		top: 10px;
+	}
+}

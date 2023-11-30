@@ -1,0 +1,13 @@
+.btn {
+	display: block;
+	padding: 10px 20px;
+	border: 2px solid var(--color-text);
+	text-decoration: none;
+	color: var(--color-text);
+	background-color: transparent;
+	transition: transform 0.2s ease;
+}
+
+.btn:hover {
+	transform: translateY(-5px);
+}

@@ -1,0 +1,23 @@
+.wrapper {
+    max-width: 1230px;
+    padding: 0 15px;
+    margin: 50px auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+}
+
+.balance {
+    display: flex;
+    justify-content: space-between;
+}
+
+.invest {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1 1 50%;
+    column-gap: 10px;
+}
