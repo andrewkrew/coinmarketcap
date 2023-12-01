@@ -1,4 +1,5 @@
 import { TokensPortfolioData } from '../../shared/api/types'
+import { PriceIndicator } from '../priceIndicator'
 import styles from './styles.module.css'
 
 export const BestWorstInvest = ({token, children}: {token: TokensPortfolioData, children: string}) => {
@@ -8,8 +9,9 @@ export const BestWorstInvest = ({token, children}: {token: TokensPortfolioData, 
             <img className={styles.photo} src={token.image} alt={token.name}/>
             <h4 className={styles.coinName}>{token.name}</h4>
             <div>
-                <p className={styles.procent}>{token.profit.procent}%</p>
-                <p className={styles.value}>{token.profit.value}</p>
+                <PriceIndicator>{token.profit.procent}</PriceIndicator>
+                {/* <p className={styles.procent}>{token.profit.procent}%</p> */}
+                <p className={styles.value}>$ {token.profit.value}</p>
             </div>
         </div>
     )

@@ -58,5 +58,6 @@ export const CurrencyInfoPage = () => {
 				<p dangerouslySetInnerHTML={{__html:coinDetailData.description.en}}></p>
 			</div>
 		</section>
+		// <pre>{JSON.stringify(coinDetailData, null ,2)}</pre>
 	)
 }

@@ -15,9 +15,14 @@
     justify-content: space-between;
 }
 
+.analytics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .invest {
     display: flex;
     justify-content: flex-end;
-    flex: 1 1 50%;
+    /* flex: 1 1 50%; */
     column-gap: 10px;
 }

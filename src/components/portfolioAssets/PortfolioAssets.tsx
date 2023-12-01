@@ -1,21 +1,22 @@
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { portfolioDataSelector } from '../../redux/selectors';
 import { useAppSelector } from '../../shared/hooks/useRedux';
 import styles from './styles.module.css'
 import AddIcon from '@mui/icons-material/Add';	
 import { useNavigate } from 'react-router-dom';
 import { PriceIndicator } from '../priceIndicator';
+import { ModalWindow } from '../ui/modalWindow';
+import { AddTransactionMenu } from '../addTransactionMenu';
+import { TransactionsMenu } from '../transactionsMenu';
 
-export const PortfolioAssets = (
-	{setTokenTransInfoId}
-	: {setTokenTransInfoId:Dispatch<SetStateAction<string>>}
-) => {
-	
+export const PortfolioAssets = () => {
 	const {tokens} = useAppSelector(portfolioDataSelector);
 	const navigate = useNavigate();
 	const navigateToCoin = (coinId: string) => {
 		navigate(`/currencies/${coinId}`);
 	}
+	const [tokenTransInfoId, setTokenTransInfoId] = useState<string>('');
+
 
 	return (
 		<section className={styles.coins}>
@@ -36,26 +37,30 @@ export const PortfolioAssets = (
 							<p className={styles.coinTitle}>{item.name}</p>
 							<p className={styles.coinSymbol}>{(item.symbol).toUpperCase()}</p>
 						</div>
-						<div className={styles.clickWrapper} onClick={() => setTokenTransInfoId(item.id)}>
-							<p className={styles.coinPrice}>{item.currancy}</p>
-							<div className={styles.coin24H}>
-								<PriceIndicator>{item.profit24h.procent}</PriceIndicator>
-							</div>
-							<div className={styles.coinHold}>
-								<p>${item.currentBalance}</p>
-								<p>{item.currentTokens} {item.symbol.toUpperCase()}</p>
-							</div>
-							<p className={styles.coinAvgPrice}>{item.averagePrice}</p>
-							<div className={styles.coinProfit}>
-								<p>${item.profit.value}</p>
-								<p>{item.profit.procent}%</p>
-							</div>
-							<p className={styles.coinAdd}>
-								<AddIcon/>	
-							</p>
-						</div>
-						
+						<ModalWindow 
+							btnValue={
+							<div className={styles.clickWrapper} onClick={() => setTokenTransInfoId(item.id)}>
+								<p className={styles.coinPrice}>{item.currancy}</p>
+								<div className={styles.coin24H}>
+									<PriceIndicator>{item.profit24h.procent}</PriceIndicator>
+								</div>
+								<div className={styles.coinHold}>
+									<p>${item.currentBalance}</p>
+									<p>{item.currentTokens} {item.symbol.toUpperCase()}</p>
+								</div>
+								<p className={styles.coinAvgPrice}>{item.averagePrice}</p>
+								<div className={styles.coinProfit}>
+									<p>${item.profit.value}</p>
+									<p>{item.profit.procent}%</p>
+								</div>
+							</div>}>
+							<TransactionsMenu tokenTransInfoId={tokenTransInfoId} />
+						</ModalWindow>
+						<p className={styles.coinAdd}>
+							<ModalWindow btnValue={<AddIcon/>}><AddTransactionMenu/></ModalWindow>						
+						</p>
 					</div>
+					
 				)
 			})}
 		</section>
