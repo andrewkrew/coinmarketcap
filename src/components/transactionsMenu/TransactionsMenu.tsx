@@ -2,6 +2,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/useRedux';
 import { portfolioDataSelector } from '../../redux/selectors';
 import { removeAllTransactions, removeTransaction } from '../../redux/portfolioData';
+import { ModalWindow } from '../ui/modalWindow';
+import { AddTransactionMenu } from '../addTransactionMenu';
 
 export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}) => {
 	
@@ -22,9 +24,8 @@ export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}
 						<p>{token.currentBalance}</p>
 						<p>{token.profit24h?.procent}</p>
 					</div>
-					<button type='button'>
-						Add transaction
-					</button>
+					<ModalWindow btnValue="Add transaction"><AddTransactionMenu/></ModalWindow>
+					<p>ADD CONFIRM</p>
 					<button type='button' onClick={() => dispatch(removeAllTransactions(token.id))}>
 						Delete all transactions
 					</button>
