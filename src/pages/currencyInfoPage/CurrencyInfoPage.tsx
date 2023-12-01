@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../shared/hooks/useRedux';
 import { coinsSelector } from '../../redux/selectors';
 import { fetchCoinDetailsThunk } from '../../redux';
 import { Button } from '@mui/base';
-import { CurrencyConverter } from '../../components/ui/сurrencyConverter';
+import { CurrencyConverter } from '../../components/ui/currencyConverter';
 import { Link } from '@mui/material';
 
 export const CurrencyInfoPage = () => {

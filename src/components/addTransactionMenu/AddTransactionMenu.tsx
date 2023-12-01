@@ -19,8 +19,8 @@ export const AddTransactionMenu = () => {
 
 	const [operation, setOperation] = useState<number>(0);
 	const [token, setToken] = useState<TokensAddTransaction>({} as TokensAddTransaction);
-	const [currencyToken, setCurrencyToken] = useState<number>(0);
-	const [quantity, setQuantity] = useState<number>(1);
+	const [currencyToken, setCurrencyToken] = useState<string>('0');
+	const [quantity, setQuantity] = useState<string>('1');
 	const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
 
 	const {selectedToken} = useAppSelector(portfolioCurrancySelector);
@@ -34,22 +34,23 @@ export const AddTransactionMenu = () => {
 			id: getMaxId(transactions),
 			tokenId: token.id,
 			type: operation === 0 ? 'buy' : 'sell',
-			price: currencyToken,
-			totalTokens: operation === 0 ? quantity : -quantity,
-			totalCostTransaction: operation === 0 ? currencyToken * quantity : -currencyToken * quantity,
+			price: +currencyToken,
+			totalTokens: +operation === 0 ? +quantity : +(-quantity),
+			totalCostTransaction: +operation === 0 ? +currencyToken * +quantity : +(-currencyToken) * +quantity,
 			date: date.toString(),
 		}));
 		setOperation(0);
-		setCurrencyToken(0);
-		setQuantity(1);
+		setCurrencyToken('0');
+		setQuantity('1');
 		setDate(dayjs());
 	}
 
 	useEffect(() => {
+		if (!quantity) return;
 		if (operation === 1) {
 			const selectedToken = tokens.find(item => item.id === token.id);
-			if (selectedToken && quantity > selectedToken.currentTokens) {
-				setQuantity(selectedToken.currentTokens);
+			if (selectedToken && +quantity > selectedToken.currentTokens) {
+				setQuantity(selectedToken.currentTokens.toString());
 			}
 		}
 	}, [operation, quantity, token.id, tokens])
@@ -60,26 +61,26 @@ export const AddTransactionMenu = () => {
 
 	useEffect(() => {
 		if(Object.keys(token).length) {
-			setCurrencyToken(selectedToken[0].current_price)
+			setCurrencyToken(selectedToken[0].current_price.toString())
 		} else {
-			setCurrencyToken(0)
+			setCurrencyToken('0')
 		}
 	}, [selectedToken])
 
 	const checkQuantityTokens = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const quantity = +event.target.value;
+		const quantity = event.target.value;
 
-		if (quantity < 0) return setQuantity(0);
+		if (+quantity < 0) return setQuantity('0');
 		if (operation === 1) {
 			const selectedToken = tokens.find(item => item.id === token.id);
 			
 			if (selectedToken) {
-				return quantity > selectedToken.currentTokens
-					? setQuantity(selectedToken.currentTokens) 
-					: setQuantity(quantity);
+				return +quantity > selectedToken.currentTokens
+					? setQuantity(selectedToken.currentTokens.toString()) 
+					: setQuantity(quantity.toString());
 			}
 		}
-		setQuantity(quantity);
+		setQuantity(quantity.toString());
 	}
 	
 	return (
@@ -144,8 +145,8 @@ export const AddTransactionMenu = () => {
 							type="number"
 							required
 							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-								const currency = +event.target.value;
-								currency < 0 ? setCurrencyToken(0) : setCurrencyToken(+event.target.value);
+								const currency = event.target.value;
+								+currency < 0 ? setCurrencyToken('0') : setCurrencyToken(currency);
 							}}
 							InputLabelProps={{
 								shrink: true,
@@ -162,7 +163,7 @@ export const AddTransactionMenu = () => {
 							}}
 						/>
 					</LocalizationProvider>
-					<div>Total spent: {quantity * currencyToken}</div>
+					<div>Total spent: {quantity ? +quantity * +currencyToken : ''}</div>
 					<Button variant="outlined" type="submit">Add transaction</Button>
 				</form>
 			</div>
