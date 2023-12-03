@@ -1,14 +1,6 @@
 import Api from ".";
 import { CoinsAllData, CoinDetailData,  MarketData } from "./types";
 
-// 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&sparkline=true&locale=en&per_page=100&page=1&x_cg_demo_api_key=CG-LxtsanKr45RpMiLLJDJgKJed'
-
-// `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_demo_api_key=CG-LxtsanKr45RpMiLLJDJgKJed`
-
-// `https://api.coingecko.com/api/v3/coins/${coinId}/ohlc?vs_currency=usd&days=max&x_cg_demo_api_key=CG-LxtsanKr45RpMiLLJDJgKJed`
-
-// https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Ctron&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en
-
 class Coins extends Api {
 	private readonly endpointCoins = '/coins';
 	private readonly endpointAll = '/markets?vs_currency=usd&order=market_cap_desc&sparkline=false&locale=en';

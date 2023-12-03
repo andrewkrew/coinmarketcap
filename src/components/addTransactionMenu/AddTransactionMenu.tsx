@@ -29,7 +29,8 @@ export const AddTransactionMenu = () => {
 
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		if (!token || !currencyToken || !quantity || !date) return;
+		if (!Object.keys(token).length || !currencyToken || +quantity === 0 || !date) return;
+		
 		dispatch(addTransaction({
 			id: getMaxId(transactions),
 			tokenId: token.id,

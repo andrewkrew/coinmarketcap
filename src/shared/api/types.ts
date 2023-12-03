@@ -45,6 +45,19 @@ export interface ExchangesAllData {
 	trade_volume_24h_btc_normalized: number,
 }
 
+export interface ExchangeDetailData {
+	"name": string,
+  "year_established": number,
+  "country": string,
+  "description": string,
+  "url": string,
+  "image": string,
+  "centralized": boolean,
+  "trust_score": number,
+  "trust_score_rank": number,
+  "trade_volume_24h_btc": number,
+}
+
 export interface MarketData {
 	id: string,
 	name: string,
@@ -159,4 +172,27 @@ export interface TokensAddTransaction {
   id: string;
   name: string;
   symbol: string;
+}
+
+export interface searchCoinsData {
+	"id": string,
+	"name": string,
+	"api_symbol": string,
+	"symbol": string,
+	"market_cap_rank": number,
+	"thumb": string,
+	"large": string,
+}
+
+export interface searchExchangessData {
+	"id": string,
+	"name": string,
+	"market_type": string,
+	"thumb": string,
+	"large": string,
+}
+
+export interface searchData {
+	coins: searchCoinsData[],
+	exchanges: searchExchangessData[],
 }

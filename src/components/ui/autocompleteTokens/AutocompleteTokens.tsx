@@ -69,7 +69,7 @@ export const AutocompleteTokens = (
       onClose={() => {
         setOpen(false);				
       }}
-			onChange={async (event, newValue) => {
+			onChange={async (_, newValue) => {
 				if (!newValue) return;				
 				setToken({
 					id: newValue.id,

@@ -1,13 +1,12 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useAppDispatch, useAppSelector } from '../../shared/hooks/useRedux';
+import { useAppSelector } from '../../shared/hooks/useRedux';
 import { portfolioDataSelector } from '../../redux/selectors';
-import { removeAllTransactions, removeTransaction } from '../../redux/portfolioData';
 import { ModalWindow } from '../ui/modalWindow';
 import { AddTransactionMenu } from '../addTransactionMenu';
+import { ModalAlert } from '../ui/modalAlert';
 
 export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}) => {
 	
-	const dispatch = useAppDispatch();
 	const {transactions, tokens} = useAppSelector(portfolioDataSelector)
 	const token = tokens.find(item => item.id === tokenTransInfoId);
 	
@@ -26,9 +25,12 @@ export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}
 					</div>
 					<ModalWindow btnValue="Add transaction"><AddTransactionMenu/></ModalWindow>
 					<p>ADD CONFIRM</p>
-					<button type='button' onClick={() => dispatch(removeAllTransactions(token.id))}>
-						Delete all transactions
-					</button>
+					<ModalAlert 
+						btnValue={'Delete all transactions'}
+						removeType={'all'}
+						idToken={token.id}>
+						Are you sure you want to delete all transaction?
+					</ModalAlert>
 				</div>
 				<div>
 					{/* grid */}
@@ -65,9 +67,12 @@ export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}
 										<p>-{token.symbol} {item.totalTokens}</p>
 									</div> 
 									}
-									<p onClick={() => dispatch(removeTransaction(item.id))}>
-										<DeleteForeverIcon/>
-									</p>
+									<ModalAlert 
+										btnValue={<DeleteForeverIcon/>}
+										removeType='id'
+										idTsx={item.id}>
+										Are you sure you want to delete this transaction?
+									</ModalAlert>
 								</div>
 							})
 					}
@@ -75,6 +80,4 @@ export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}
 			</>
 		)
 	}
-	
-
 }

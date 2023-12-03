@@ -31,7 +31,6 @@ export const Header = () => {
 				<ThemeToggleBtn/>
 			</div>
 			<div>
-				{/* <ThemeToggleBtn/> */}
 				<AuthBtn/>
 			</div>
 			{/* <BurgerBtn isActive={isActiveBurger} setIsActive={setIsActiveBurger}/>

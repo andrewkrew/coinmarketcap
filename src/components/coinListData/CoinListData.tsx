@@ -17,12 +17,12 @@ export const CoinListData = (item: CoinsAllData) => {
 			<div className={styles.coinInfo} onClick={() => navigateToCoin(item.id)}>
 				<img className={styles.coinLogo} src={item.image} alt={item.name} />
 				<p>{item.name}</p>
-				<p>{(item.symbol).toUpperCase()}</p>
+				<p>{(item.symbol)?.toUpperCase()}</p>
 			</div>
 			<p className={styles.coinPrice}>{item.current_price}</p>
 			<div className={styles.coin24H}>
 				<PriceIndicator>
-					{+item.price_change_percentage_24h.toFixed(2)}
+					{+item.price_change_percentage_24h?.toFixed(2)}
 				</PriceIndicator>
 			</div>
 			<p className={styles.coinMarketCap}>{item.market_cap}</p>

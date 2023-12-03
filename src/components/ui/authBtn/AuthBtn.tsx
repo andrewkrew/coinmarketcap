@@ -1,23 +1,32 @@
-
+import { Link, useNavigate } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from "../../../shared/hooks/useRedux"
+import { authSelector } from "../../../redux/selectors"
+import styles from './styles.module.css'
+import { removeUser } from "../../../redux"
 
 export const AuthBtn = () => {
 	
-	// const logOut = () => {
-	// 	dispatch(logoutThunk());
-	// 	navigate('/', {replace: true});
-	// }
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
+	const logOut = () => {
+		dispatch(removeUser());
+		navigate('/', {replace: true});
+	}
+
+	const {authorization, email} = useAppSelector(authSelector);
 	
 	return (
-		// <div>
-		// 	{!authorization ? <NavLink to='/login' className={setActive}>Login</NavLink> 
-		// 	: <div 
-		// 			className={styles.header__logout}
-		// 			onClick={() => logOut()}
-		// 		>
-		// 		<div>IMG</div>
-		// 		{`Hi ${userName}! Logout`}
-		// 		</div>}
-		// </div>
-		<p>Login/out</p>
+		<div>
+			{!authorization ? <Link to='/login'>Login</Link> 
+			: <div 
+					className={styles.header__logout}
+					onClick={() => logOut()}
+				>
+				<div>IMG</div>
+				{`Hi ${email}! Logout`}
+				</div>}
+		</div>
+		// <p><Link to={'/login'}>Login</Link></p>
 	)
 }

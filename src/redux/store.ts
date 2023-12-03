@@ -8,18 +8,18 @@ import { persistStore,
   REGISTER,} from 'redux-persist'
 import storage from 'redux-persist/lib/storage' 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-// import { authReducer, themeReducer, coinsReducer } from '.'
-import { coinsReducer } from '.'
+import { authReducer, candleReducer, coinsReducer, exchangesReducer, themeToggleReducer } from '.'
 import { portfolioCurrencyReducer } from './portfolioCurrency'
 import { portfolioDataReducer } from './portfolioData'
-import { themeToggleReducer } from './theme'
 
 const rootStore = combineReducers({
-	// auth: authReducer,
+	auth: authReducer,
 	theme: themeToggleReducer,
 	coins: coinsReducer,
+	exchanges: exchangesReducer,
 	portfolioCurrency: portfolioCurrencyReducer,
 	portfolioData: portfolioDataReducer,
+	candleData: candleReducer,
 })
 
 const persistConfig = {

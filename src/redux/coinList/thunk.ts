@@ -22,23 +22,7 @@ export const fetchCoinDetailsThunk = createAsyncThunk(
 	'coins/fetchCoinDetails',
 	async (id: string, { rejectWithValue }) => {
 		try {
-			const data = await (new Coins()).getDetails(id);
-			return data
-		}
-		catch(error: unknown) {
-			if (error instanceof Error) {
-				return rejectWithValue(error.message);
-			}
-      return rejectWithValue('Server error, try again!');
-		}
-	}
-)
-
-export const fetchCandleDataThunk = createAsyncThunk(
-	'coins/fetchCandleData',
-	async ({id, days} : {id: string, days: string}, { rejectWithValue }) => {
-		try {
-			const data = await (new Coins()).getCandleData({id, days});
+			const data = await (new Coins()).getDetails(id);			
 			return data
 		}
 		catch(error: unknown) {

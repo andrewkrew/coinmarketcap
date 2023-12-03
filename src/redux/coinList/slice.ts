@@ -1,12 +1,11 @@
 import { AnyAction, createSlice } from "@reduxjs/toolkit";
 import { CoinsAllData, CoinDetailData, MarketData } from "../../shared/api/types";
-import { fetchCoinsThunk, fetchCoinDetailsThunk, fetchCandleDataThunk, fetchMarketDataThunk } from "./thunk";
+import { fetchCoinsThunk, fetchCoinDetailsThunk, fetchMarketDataThunk } from "./thunk";
 
 interface CoinsState {
 	isLoading: boolean,
 	coinsData: CoinsAllData[],
 	coinDetailData: CoinDetailData,
-	coinCandleData: number[],
 	marketData: MarketData[],
 	error: string | undefined,
 }
@@ -15,7 +14,6 @@ const initialState: CoinsState = {
 	isLoading: false,
 	coinsData: [],
 	coinDetailData: {} as CoinDetailData,
-	coinCandleData: [],
 	marketData: [],
 	error: '',
 }
@@ -52,21 +50,6 @@ export const coinsSlice = createSlice({
 		})
 
 		builder.addMatcher(fetchCoinDetailsThunk.rejected.match, (state, action: AnyAction) => {
-      state.isLoading = false;
-			state.error = action.payload;
-		})
-
-		builder.addMatcher(fetchCandleDataThunk.pending.match, (state) => {
-			state.isLoading = true;
-		})
-
-		builder.addMatcher(fetchCandleDataThunk.fulfilled.match, (state, action: AnyAction) => {
-			state.isLoading = false;
-			state.coinCandleData = action.payload;
-			state.error = '';
-		})
-
-		builder.addMatcher(fetchCandleDataThunk.rejected.match, (state, action: AnyAction) => {
       state.isLoading = false;
 			state.error = action.payload;
 		})

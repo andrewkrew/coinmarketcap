@@ -3,7 +3,6 @@ import styles from './styles.module.css'
 // import { useAppSelector } from "../../shared/hooks/useRedux"
 // import { themeSelector } from "../../redux/selectors"
 import { LinkBtn } from "../../components/ui/linkBtn"
-import { Portfolio } from "../../components/portfolio/Portfolio"
 
 export const HomePage = () => {
 
@@ -24,7 +23,6 @@ export const HomePage = () => {
 				Rem reiciendis reprehenderit corrupti velit sed, vel amet deserunt fuga debitis rerum. Impedit, quod nulla. 
 				</p>
 			</div>
-			<Portfolio/>
 		</section>
 	)
 }

@@ -7,8 +7,48 @@
 // import { IconEye, IconEyeClosed } from '@tabler/icons-react';
 // import { LinkBtn } from "../../components/ui/linkBtn";
 
-export const AuthPage = () => {
+import { Link } from "react-router-dom"
+import { LoginForm } from "../../components/ui/loginForm"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useAppDispatch } from "../../shared/hooks/useRedux";
+import { setUser } from "../../redux";
+
+export const SignUpPage = () => {
 	
+	const dispatch = useAppDispatch() 
+
+	const handleLogin = (email: string, password: string) => {
+		const auth = getAuth();
+		createUserWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				const user = userCredential.user;
+				dispatch(setUser({
+					authorization: true,
+					email: user.email,
+					id: user.uid,
+					// accessToken: user.accessToken,
+					refreshToken: user.refreshToken,
+				}))
+			})
+			.catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				console.log(errorCode);
+				console.log(errorMessage);
+				dispatch(setUser({
+					error: errorMessage,
+				}))
+			});
+	}
+
+	return (
+		<div>
+			<h1>Sign up</h1>
+			<LoginForm handleLogin={handleLogin}/>
+			<p>Already have an account? <Link to={'/login'}>Login</Link></p>
+		</div>
+	)
+
 	// const location = useLocation();
 	// const navigate = useNavigate();
 	// const {theme} = useAppSelector(themeSelector);
@@ -44,7 +84,7 @@ export const AuthPage = () => {
 	// 	(passwordType === 'password') ? setPasswordType('text') : setPasswordType('password')
 	// }
 
-	return (
+	// return (
 	// <section className={theme === 'light' ? styles.login : `${styles.login} ${styles.login_dark}`}>
 	// 	<div className={`wrapper ${styles.wrapper}`}>
 	// 		<h1 className={styles.login__title}>Login</h1>	
@@ -83,6 +123,5 @@ export const AuthPage = () => {
 	// 		{error && isAuth ? <p className={styles.login__message}>Something went wrong! Try again</p> : ''}
 	// 	</div>
 	// </section>
-	<div>AUTH PAGE</div>
-	)
+	// )
 }

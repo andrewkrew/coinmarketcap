@@ -56,9 +56,9 @@ export const PortfolioAssets = () => {
 							</div>}>
 							<TransactionsMenu tokenTransInfoId={tokenTransInfoId} />
 						</ModalWindow>
-						<p className={styles.coinAdd}>
+						<div className={styles.coinAdd}>
 							<ModalWindow btnValue={<AddIcon/>}><AddTransactionMenu/></ModalWindow>						
-						</p>
+						</div>
 					</div>
 					
 				)

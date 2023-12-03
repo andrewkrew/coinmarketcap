@@ -1,0 +1,94 @@
+.login {
+	background-color: var(--body-color-bcg);
+}
+
+.wrapper {
+	padding-top: 50px;
+	min-height: calc(100vh - 90px);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	row-gap: 50px;
+}
+
+.login__title {
+	font-size: 50px;
+	color: var(--color-text);
+}
+
+.login__form {
+	display: flex;
+	flex-direction: column;
+	row-gap: 30px;
+	column-gap: 30px;
+	width: 320px;
+}
+
+.login__form label {
+	display: flex;
+	justify-content: space-between;
+	color: var(--color-text);
+	align-items: center;
+}
+
+.login__form input{
+	padding: 10px;
+	text-align: center;
+	background-color: transparent;
+	border: 2px solid var(--color-text);
+	color: var(--color-text);
+}
+
+.login__password {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	border: 2px solid var(--color-text);
+}
+
+.login__login {
+	width: 234px;
+}
+
+.login__passwordInput {
+	width: 200px;
+}
+
+.login__eye {
+	align-self: center;
+	cursor: pointer;
+	color: #898989;
+	width: 30px;
+	text-align: center;
+}
+
+.login__eye:hover {
+	color: var(--color-text);
+}
+
+.login__password input {
+	border: none;
+}
+
+.login__form input:focus {
+	box-shadow: inset 0 0 5px var(--header-color-bcg);
+}
+
+.login_dark .login__form input::placeholder {
+	color: #898989;
+}
+
+.login__message {
+	color: var(--color-text);
+}
+
+@media (max-width: 500px) {
+
+	.wrapper {
+		min-height: calc(100vh - 70px);
+	}
+	.login__form {
+		flex-direction: column;
+		row-gap: 30px;
+	}
+}

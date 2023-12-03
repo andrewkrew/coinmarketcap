@@ -1,6 +1,7 @@
 import {useLocation, Navigate, Outlet} from 'react-router-dom'
 import { useAppSelector } from '../../shared/hooks/useRedux';
-// import { authSelector } from '../redux/selectors';
+import { authSelector } from '../../redux/selectors';
+
 
 export const PrivateRoute = () => {
 	
