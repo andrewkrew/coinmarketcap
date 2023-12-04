@@ -177,19 +177,17 @@ export interface TokensAddTransaction {
 export interface searchCoinsData {
 	"id": string,
 	"name": string,
-	"api_symbol": string,
 	"symbol": string,
-	"market_cap_rank": number,
 	"thumb": string,
+	"api_symbol": string,
+	"market_cap_rank": number,
 	"large": string,
 }
 
 export interface searchExchangessData {
 	"id": string,
 	"name": string,
-	"market_type": string,
 	"thumb": string,
-	"large": string,
 }
 
 export interface searchData {

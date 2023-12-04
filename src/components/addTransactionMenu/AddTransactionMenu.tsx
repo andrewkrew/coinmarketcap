@@ -62,7 +62,7 @@ export const AddTransactionMenu = () => {
 
 	useEffect(() => {
 		if(Object.keys(token).length) {
-			setCurrencyToken(selectedToken[0].current_price.toString())
+			setCurrencyToken(selectedToken[0].current_price?.toString())
 		} else {
 			setCurrencyToken('0')
 		}
@@ -77,11 +77,11 @@ export const AddTransactionMenu = () => {
 			
 			if (selectedToken) {
 				return +quantity > selectedToken.currentTokens
-					? setQuantity(selectedToken.currentTokens.toString()) 
-					: setQuantity(quantity.toString());
+					? setQuantity(selectedToken.currentTokens?.toString()) 
+					: setQuantity(quantity?.toString());
 			}
 		}
-		setQuantity(quantity.toString());
+		setQuantity(quantity?.toString());
 	}
 	
 	return (

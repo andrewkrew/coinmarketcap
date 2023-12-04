@@ -1,4 +1,11 @@
-import { MarketData, TokensAddTransaction, TokensPortfolioData, TransactionsPortfolioData } from "../../shared/api/types";
+import { 
+	CoinsAllData,
+	MarketData, 
+	// TokensAddTransaction, 
+	TokensPortfolioData, 
+	TransactionsPortfolioData,
+	searchCoinsData,
+} from "../../shared/api/types";
 
 export const getMaxId = (array: TransactionsPortfolioData[]) => {
 	return array.reduce((res, item) => {
@@ -6,23 +13,44 @@ export const getMaxId = (array: TransactionsPortfolioData[]) => {
 		}, 0) + 1
 }
 
-export const getIdList = (tokens: TokensPortfolioData[], fetchData: MarketData[]) => {
+export const getIdList = (tokens: TokensPortfolioData[], fetchData: MarketData[]):searchCoinsData[] => {	
 	const result = tokens.map(item => {
 		const findValue = fetchData.findIndex((data: MarketData) => item.id === data.id);
 		if(findValue !== -1) {
 			return ({
 				id: item.id,
 				name: item.name,
-				symbol: item.symbol,
-			} as TokensAddTransaction)
-		}
-		else {
-			return ({
-				id: 'error',
-				name: 'error',
-				symbol: 'ERROR',
-			})
+				symbol: item.symbol.toUpperCase(),
+				thumb: item.image,
+				api_symbol: item.symbol.toUpperCase(),
+				market_cap_rank: 1,
+				large: item.image,
+			} as searchCoinsData)
+		} else {
+			return {
+				id: '',
+				name: '',
+				symbol: '',
+				thumb: '',
+				api_symbol: '',
+				large: '',
+				market_cap_rank: 1,
+			} as searchCoinsData;
 		}
 	})
 	return result;
+}
+
+export const changeAutocompleteDataType = (data: CoinsAllData[]): searchCoinsData[] => {
+	return data.map(item => {
+		return {
+			id: item.id,
+			name: item.name,
+			symbol: item.symbol.toUpperCase(),
+			thumb: item.image,
+			api_symbol: item.symbol.toUpperCase(),
+			market_cap_rank: item.market_cap_rank,
+			large: item.image,
+		} as searchCoinsData
+	})
 }
