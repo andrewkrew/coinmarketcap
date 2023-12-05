@@ -25,19 +25,13 @@ export const AutocompleteTokens = (
   const [options, setOptions] = useState<readonly searchCoinsData[]>([]);
   const loading = open && options.length === 0;
 
-	const INITIAL_STATE: searchCoinsData = {
-		id: '',
-		name: '',
-		symbol: '',
-		thumb: '',
-		api_symbol: '',
-		large: '',
-		market_cap_rank: 1,
-	}
-
-	// const [value, setValue] = useState<searchCoinsData | undefined>(options[0]);
-	const [value, setValue] = useState<searchCoinsData | undefined>(INITIAL_STATE);
+	const [value, setValue] = useState<searchCoinsData | null>(options[0] || null);
   const [inputValue, setInputValue] = useState('');
+
+	useEffect(() => {
+		setInputValue('')
+		setValue(null)
+	}, [operation])
 
 	const fetchData: () => void = () => {
 		
@@ -60,9 +54,7 @@ export const AutocompleteTokens = (
 						return;
 					}
 					if(!res.coins.length) return;
-					setOptions(res.coins);
-					console.log(value);
-					console.log(inputValue);
+					setOptions(res.coins);				
 				})
 			}
 	}
@@ -94,7 +86,7 @@ export const AutocompleteTokens = (
 			onChange={async (_, newValue: searchCoinsData | null) => {
 				if (!newValue) {
 					setInputValue('')
-					setValue(INITIAL_STATE)
+					setValue(null)
 					return;
 				} 		
 				setValue(newValue);
@@ -104,8 +96,13 @@ export const AutocompleteTokens = (
 					symbol: newValue.symbol,
 				})
 			}}
-      isOptionEqualToValue={(option, value) => option.name === value.name || option.id === value.id}
-			getOptionLabel={(option) => option.name}
+
+      isOptionEqualToValue={(option, value) => {	
+		if (!value.id) return false		
+		return option.id === value.id || option.name === value.name
+	  }}
+ 
+			getOptionLabel={(option) => `${option.symbol} ${option.name}`}
 			renderOption={(props, option) => (
         <Box
 					key={`${option.id}`}

@@ -11,9 +11,6 @@ import { portfolioCurrancySelector, portfolioDataSelector } from "../../redux/se
 import { fetchSelectredTokenThunk } from "../../redux/portfolioCurrency";
 import { addTransaction } from "../../redux/portfolioData";
 import { getMaxId} from "../../utilits";
-// import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber';
-// import { Nullable } from "primereact/ts-helpers";
-
 
 export const AddTransactionMenu = () => {
 
@@ -97,34 +94,6 @@ export const AddTransactionMenu = () => {
 						operation = {operation}
 					/>
 					<div>
-						{/* <div className="flex-auto">
-							<label htmlFor="minmaxfraction" className="font-bold block mb-2">Quantity</label>
-							<InputNumber 
-								inputId="minmaxfraction" 
-								value={quantity} 
-								onValueChange={(e: InputNumberValueChangeEvent) => setQuantity(e.value)} 
-								// suffix={`  ${token.id.toUpperCase()}`}
-								// suffix={' ' + `${token?.id?.toUpperCase() && " "}`}
-								suffix={token?.id ? `  ${token?.id?.toUpperCase()}` : " "}
-								showButtons
-								min={0}
-								minFractionDigits={2} 
-								maxFractionDigits={8}
-							/>
-            </div>
-						<div className="flex-auto">
-							<label htmlFor="stacked-buttons" className="font-bold block mb-2">United States</label>
-							<InputNumber 
-								inputId="stacked-buttons" 
-								value={currencyToken} 
-								onValueChange={(e: InputNumberValueChangeEvent) => setCurrencyToken(e.value)} 
-								showButtons 
-								mode="currency" 
-								currency="USD"
-								min={0}
-								maxFractionDigits={8}
-							/>
-            </div> */}
 						<TextField
 							id="quantityToken" 
 							label="Quantity" 

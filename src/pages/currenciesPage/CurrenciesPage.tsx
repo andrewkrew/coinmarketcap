@@ -9,6 +9,7 @@ import { Pagination, PaginationItem } from '@mui/material';
 import { SelectPagination } from '../../components/ui/selectPagination';
 import { Link as Links} from 'react-router-dom';
 import { useCustomPagination } from '../../shared/hooks/useCustomPagination';
+import { AutocompleteSearch } from '../../components/ui/autocompleteSearch';
 
 
 export const CurrenciesPage = () => {
@@ -37,6 +38,7 @@ export const CurrenciesPage = () => {
 	return (
 		<section className={styles.coins}>
 			<h1 className={styles.title}>Today's Cryptocurrency Prices by Market Cap</h1>
+			<AutocompleteSearch type='currencies'/>
 			<div>
 				<SelectPagination 
 					coinsQty={itemQty} 

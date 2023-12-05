@@ -9,6 +9,7 @@ import { fetchExchangesThunk } from '../../redux';
 import { Pagination, PaginationItem } from '@mui/material';
 import { Link as Links} from 'react-router-dom';
 import { SelectPagination } from '../../components/ui/selectPagination';
+import { AutocompleteSearch } from '../../components/ui/autocompleteSearch';
 
 export const ExchangesPage = () => {
 
@@ -34,6 +35,7 @@ export const ExchangesPage = () => {
 	return (
 		<section className={styles.exchanges}>
 			<h1 className={styles.title}>Top Crypto Exchanges Ranked by Trust Score</h1>
+			<AutocompleteSearch type='exchanges'/>
 			<div>
 				<SelectPagination 
 					coinsQty={itemQty} 
