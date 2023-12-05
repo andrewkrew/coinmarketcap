@@ -7,19 +7,21 @@ import { CurrenciesPage } from './pages/currenciesPage/CurrenciesPage';
 import { CurrencyInfoPage } from './pages/currencyInfoPage/CurrencyInfoPage';
 import { ExchangesPage } from './pages/exchangesPage/ExchangesPage';
 import { PrivateRoute } from './pages/private/PrivateRoute';
-import { WatchlistPage } from './pages/watchlistPage/WatchlistPage';
 import { PortfolioPage } from './pages/portfolioPage/PortfolioPage';
 import { useAppSelector } from './shared/hooks/useRedux';
 import { themeSelector } from './redux/selectors';
 import { useLayoutEffect } from 'react';
 import { LoginPage } from './pages/loginPage';
 import { SignUpPage } from './pages/signUpPage/SignUpPage';
+import { ExchangeInfoPage } from './pages/exchangeInfoPage/ExchangeInfoPage';
 import './firebase'
-import { ExchangeInfoPage } from './pages/exchangeInfoPage/exchangeInfoPage';
+import { useOffsetY } from './shared/hooks/useOffsetY';
+
 
 export const App = () => {
 
 	const {theme} = useAppSelector(themeSelector);
+	const {offsetY, setOffsetY} = useOffsetY();
 
 	useLayoutEffect(() => {
 		const document = window.document.documentElement;
@@ -34,12 +36,11 @@ export const App = () => {
 					<Route index element={<HomePage/>}/>
 					<Route path='login' element={<LoginPage/>}/>
 					<Route path='signup' element={<SignUpPage/>}/>
-					<Route path='currencies' element={<CurrenciesPage/>}/>
+					<Route path='currencies' element={<CurrenciesPage offsetY={offsetY} setOffsetY={setOffsetY}/>}/>
 					<Route path='currencies/:coinId' element={<CurrencyInfoPage/>}/>
-					<Route path='exchanges' element={<ExchangesPage/>}/>
+					<Route path='exchanges' element={<ExchangesPage offsetY={offsetY} setOffsetY={setOffsetY}/>}/>
 					<Route path='exchanges/:exchangeId' element={<ExchangeInfoPage/>}/>
 					<Route element={<PrivateRoute/>}>
-						<Route path='watchlist'element={<WatchlistPage/>}/>
 						<Route path='portfolio'element={<PortfolioPage/>}/>
 					</Route>
 				</Route>

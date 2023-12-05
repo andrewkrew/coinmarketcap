@@ -100,8 +100,8 @@ export const AutocompleteTokens = (
       isOptionEqualToValue={(option, value) => {	
 		if (!value.id) return false		
 		return option.id === value.id || option.name === value.name
-	  }}
- 
+		}}
+
 			getOptionLabel={(option) => `${option.symbol} ${option.name}`}
 			renderOption={(props, option) => (
         <Box

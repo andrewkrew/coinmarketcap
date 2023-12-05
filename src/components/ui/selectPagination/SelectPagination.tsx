@@ -3,21 +3,22 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { Dispatch, SetStateAction } from 'react';
+import { useAppDispatch } from '../../../shared/hooks/useRedux';
+import { setCoinsQnty, setExchangesQnty } from '../../../redux';
 
 export const SelectPagination = (
-	{coinsQty, setCionsQty}
-	: {coinsQty: string, setCionsQty: Dispatch<SetStateAction<string>>}
+	{coinsQty, type}
+	: {coinsQty: string, type: 'coins' | 'exchanges'}
 ) => {
 
-// export const SelectPagination = (
-// 	{coinsQty}
-// 	: {coinsQty: MutableRefObject<string>}
-// ) => {
+	const dispatch = useAppDispatch();
 
   const handleChange = (event: SelectChangeEvent) => {
-    setCionsQty(event.target.value as string);
-    // coinsQty.current = (event.target.value as string);
+    if (type === 'coins') {
+			dispatch(setCoinsQnty(event.target.value as string));
+		} else {
+			dispatch(setExchangesQnty(event.target.value as string));
+		}
   };
 
   return (
@@ -28,7 +29,6 @@ export const SelectPagination = (
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={coinsQty}
-          // value={coinsQty.current}
           label="Coins in page"
           onChange={handleChange}
         >

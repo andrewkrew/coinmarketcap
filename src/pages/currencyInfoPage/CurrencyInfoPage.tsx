@@ -8,6 +8,7 @@ import { fetchCoinDetailsThunk } from '../../redux';
 import { Button } from '@mui/base';
 import { CurrencyConverter } from '../../components/ui/currencyConverter';
 import { Link } from '@mui/material';
+import { useScrollTop } from '../../shared/hooks/useScrolltop';
 
 export const CurrencyInfoPage = () => {
 	
@@ -16,6 +17,8 @@ export const CurrencyInfoPage = () => {
 	const {coinId} = useParams();
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
+	useScrollTop();
 
 	useEffect(() => {
 		dispatch(fetchCoinDetailsThunk(coinId as string))

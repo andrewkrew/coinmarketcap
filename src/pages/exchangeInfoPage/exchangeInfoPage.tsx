@@ -5,8 +5,11 @@ import styles from './styles.module.css'
 import { useEffect } from 'react';
 import { fetchExchangeDetailsThunk } from '../../redux';
 import { Button } from '@mui/material';
+import { useScrollTop } from '../../shared/hooks/useScrolltop';
 
 export const ExchangeInfoPage = () => {
+
+	useScrollTop()
 
 	// const {isLoading, exchangeDetailData, error} = useAppSelector(exchangesSelector);
 	const {exchangeDetailData} = useAppSelector(exchangesSelector);

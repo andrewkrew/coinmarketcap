@@ -43,12 +43,6 @@ export const NavigatonMenu = () => {
 					Exchanges
 				</NavLink>
 				<NavLink 
-					to='/watchlist' 
-					// className={setActive}
-				>
-					Watchlist
-				</NavLink>
-				<NavLink 
 					to='/portfolio' 
 					// className={setActive}
 				>

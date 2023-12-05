@@ -7,3 +7,4 @@ export const portfolioCurrancySelector = (state: RootState) => state.portfolioCu
 export const portfolioDataSelector = (state: RootState) => state.portfolioData;
 export const candleSelector = (state: RootState) => state.candleData;
 export const exchangesSelector = (state: RootState) => state.exchanges;
+export const paginationSelector = (state: RootState) => state.pagination;

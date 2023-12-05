@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useAppSelector } from "./useRedux";
+import { paginationSelector } from "../../redux/selectors";
 
 export const useCustomPagination = () => {
 	const location = useLocation();
 	const COINS_NUMBER = 3000;
 	const EXCHANGES_NUMBER = 250;
 	const [page, setPage] = useState(+location.search?.split('=')[1] || 1);
-	const [itemQty, setItemQty] = useState('25');
+	const {coinsQnty, exchangesQnty} = useAppSelector(paginationSelector);
 
 	return {
 		location,
@@ -14,7 +16,7 @@ export const useCustomPagination = () => {
 		EXCHANGES_NUMBER,
 		page,
 		setPage,
-		itemQty,
-		setItemQty,
+		coinsQnty,
+		exchangesQnty,
 	}
 }

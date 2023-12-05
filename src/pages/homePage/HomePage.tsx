@@ -3,10 +3,12 @@ import styles from './styles.module.css'
 // import { useAppSelector } from "../../shared/hooks/useRedux"
 // import { themeSelector } from "../../redux/selectors"
 import { LinkBtn } from "../../components/ui/linkBtn"
+import { useScrollTop } from "../../shared/hooks/useScrolltop";
 
 export const HomePage = () => {
 
 	// const {theme} = useAppSelector(themeSelector)
+	useScrollTop();
 
 	return (
 		// <section className={theme === 'light' ? styles.home : `${styles.home} ${styles.home_dark}`}>

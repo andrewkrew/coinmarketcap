@@ -11,6 +11,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { authReducer, candleReducer, coinsReducer, exchangesReducer, themeToggleReducer } from '.'
 import { portfolioCurrencyReducer } from './portfolioCurrency'
 import { portfolioDataReducer } from './portfolioData'
+import { paginationReducer } from './pagination'
 
 const rootStore = combineReducers({
 	auth: authReducer,
@@ -20,11 +21,13 @@ const rootStore = combineReducers({
 	portfolioCurrency: portfolioCurrencyReducer,
 	portfolioData: portfolioDataReducer,
 	candleData: candleReducer,
+	pagination: paginationReducer,
 })
 
 const persistConfig = {
   key: 'root',
 	storage,
+	blacklist: ['pagination'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootStore)
