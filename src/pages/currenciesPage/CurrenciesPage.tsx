@@ -67,7 +67,12 @@ export const CurrenciesPage = (
 					<Pagination 
 						count={COINS_NUMBER / +coinsQnty} 
 						page={page}
-						onChange={(_, num) => setPage(num)}
+						onChange={(_, num) => {
+							setPage(num);
+							window.scrollTo({
+								top: 0,
+							});
+						}}
 						variant="outlined" 
 						shape="rounded" 
 						showFirstButton

@@ -6,7 +6,7 @@ import { paginationSelector } from "../../redux/selectors";
 export const useCustomPagination = () => {
 	const location = useLocation();
 	const COINS_NUMBER = 3000;
-	const EXCHANGES_NUMBER = 250;
+	const EXCHANGES_NUMBER = 300;
 	const [page, setPage] = useState(+location.search?.split('=')[1] || 1);
 	const {coinsQnty, exchangesQnty} = useAppSelector(paginationSelector);
 

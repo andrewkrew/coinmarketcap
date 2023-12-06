@@ -5,7 +5,6 @@ interface IUseTimeout {
 	resetTimeout: () => void
 }
 
-// export function useTimeout<S>(callback: Function, delay: number): IUseTimeout {
 export function useTimeout(callback: Function, delay: number): IUseTimeout {
 	const callbackRef = useRef(callback)
 	const timeoutId = useRef<NodeJS.Timeout | null>(null)

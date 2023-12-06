@@ -61,7 +61,12 @@ export const ExchangesPage = (
 				<Pagination 
 						count={EXCHANGES_NUMBER / +exchangesQnty} 
 						page={page}
-						onChange={(_, num) => setPage(num)}
+						onChange={(_, num) => {
+							setPage(num);
+							window.scrollTo({
+								top: 0,
+							});
+						}}
 						variant="outlined" 
 						shape="rounded" 
 						showFirstButton

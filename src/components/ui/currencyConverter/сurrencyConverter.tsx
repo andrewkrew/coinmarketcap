@@ -10,11 +10,9 @@ export const CurrencyConverter = () => {
 	const [fiatValue, setFiatValue] = useState<string>(coinDetailData.market_data.current_price.usd.toString());
 
 	useEffect(() => {
-		// setFiatValue((+tokenValue * +coinDetailData.market_data.current_price.usd).toFixed(2))
 		setFiatValue((+tokenValue * +coinDetailData.market_data.current_price.usd).toString())
 	}, [coinDetailData, tokenValue])
 
-	
 	return (
 		<div>
 			<p>{coinDetailData.name} to USD Converter</p>
@@ -26,20 +24,21 @@ export const CurrencyConverter = () => {
 					value={tokenValue}
 					type="number"
 					onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-						// const newValue = Math.max(+event.target.value, 0);
 						const newValue = event.target.value;
 						if (+newValue < 0) {
 							setFiatValue('0');
 							setTokenValue('0')
 							return
 						} 
-						// setTokenValue(newValue.toFixed(7));
-						// setFiatValue((newValue * coinDetailData.market_data.current_price.usd).toFixed(2));
-						setTokenValue((+newValue).toString());
+						setTokenValue((newValue).toString());
 						setFiatValue((+newValue * coinDetailData.market_data.current_price.usd).toString());
 					}}
 					InputLabelProps={{
 						shrink: true,
+					}}
+					onBlur={() => {
+						setFiatValue((+fiatValue).toString())
+						setTokenValue((+tokenValue).toString())
 					}}
 				/>
 				<TextField 
@@ -55,14 +54,15 @@ export const CurrencyConverter = () => {
 							setTokenValue('0')
 							return
 						} 
-						// setFiatValue(newValue.toFixed(2));
-						// setTokenValue((newValue / coinDetailData.market_data.current_price.usd).toFixed(7));
-						// setFiatValue((+(+newValue).toFixed(2)).toString());
-						setFiatValue((+newValue).toString());
+						setFiatValue(newValue.toString());
 						setTokenValue((+newValue / coinDetailData.market_data.current_price.usd).toString());
 					}}
 					InputLabelProps={{
 						shrink: true,
+					}}
+					onBlur={() => {
+						setFiatValue((+fiatValue).toString())
+						setTokenValue((+tokenValue).toString())
 					}}
 				/> 
 			</div>

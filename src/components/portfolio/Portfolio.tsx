@@ -18,13 +18,9 @@ export const Portfolio = () => {
 	
 	const dispatch = useAppDispatch();
 	const {isLoading, portfolioCurrencyData, error} = useAppSelector(portfolioCurrancySelector);
-	// const {portfolioCurrencyData} = useAppSelector(portfolioCurrancySelector);
 	const {tokens, transactions} = useAppSelector(portfolioDataSelector)
 
-//--------------------------------Сделать кастомный хук-----------------------------
-
 	useEffect(() => {
-		console.log('1');
 		dispatch(fetchPortfolioCurrencyThunk(setPortfolioUpdateData(getUniqTokensId(transactions))))
 	}, [dispatch, transactions])
 
@@ -63,7 +59,6 @@ export const Portfolio = () => {
 				</section>
 				<section className={styles.analytics}>
 					<PortfolioTimeseries/>
-					{/* <PortfolioDonut/> */}
 					<div style={{width: '600px', height: '400px'}}>
 						<PortfolioDonut/>
 					</div>
