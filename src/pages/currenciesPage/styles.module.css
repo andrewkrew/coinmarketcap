@@ -1,11 +1,66 @@
-.container {
-	display: grid;
-	grid-template-columns: repeat(7, 1fr);
-	justify-items: center;
+.coins {
+	margin-bottom: 30px;
 }
 
-@media (max-width: 500px){
-	/* .notFound {
-			min-height: calc(100vh - 70px);
-		} */
+.title {
+	text-align: center;
+	padding: 30px 0;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: 40px repeat(5, 1fr);
+	justify-items: center;
+	align-items: center;
+	color: var(--color-text);
+	margin-bottom: 30px;
+}
+
+.coinNumber,
+.coinName,
+.coinPrice,
+.coin24H,
+.coinMarketCap,
+.coinVolume {
+	width: 100%;
+	background-color: var(--header-color-bcg);
+	text-align: center;
+	padding: 15px 0;
+	border-bottom: 1px solid grey ;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@media (max-width: 768px){
+	.container {
+		grid-template-columns: 40px repeat(4, 1fr);
+	}
+	
+	.coinVolume {
+		display: none;
+	}
+}
+
+@media (max-width: 550px) {
+	.container {
+		grid-template-columns: 40px repeat(3, 1fr);
+	}
+
+	.coinMarketCap {
+		display: none;
+	}
+}
+
+@media (max-width: 375px) {
+	.container {
+		grid-template-columns: 40px repeat(2, 1fr);
+	}
+
+	.coin24H {
+		display: none;
+	}
 }

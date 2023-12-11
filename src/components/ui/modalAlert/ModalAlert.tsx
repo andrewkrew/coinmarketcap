@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAppDispatch } from '../../../shared/hooks/useRedux';
-import { removeAllTransactions, removeTransaction } from '../../../redux';
+import { removeAllTransactions, removeTransaction, showMessage } from '../../../redux';
+import { Box } from '@mui/material';
+import { SecondaryBtn } from '../secondaryBtn';
 
 interface Props {
 	children: string,
@@ -31,16 +32,18 @@ export const ModalAlert = ({children, btnValue, removeType, idTsx, idToken}: Pro
 		handleClose();
 		if (removeType === 'all' && idToken) {
 			dispatch(removeAllTransactions(idToken));
+			dispatch(showMessage('All transactions deleted seccessfuly!'))
 		} else if (idTsx) {
 			dispatch(removeTransaction(idTsx));
+			dispatch(showMessage('Transaction deleted seccessfuly!'))
 		}
 	}
 
   return (
     <>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        {btnValue}
-      </Button>
+			<Box onClick={handleClickOpen}>
+				<SecondaryBtn>{btnValue}</SecondaryBtn>
+			</Box>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -51,8 +54,12 @@ export const ModalAlert = ({children, btnValue, removeType, idTsx, idToken}: Pro
           {children}
         </DialogTitle>
         <DialogActions>
-          <Button onClick={handleClose} autoFocus>Disagree</Button>
-          <Button onClick={agreeDelete}> Agree</Button>
+					<Box onClick={handleClose}>
+						<SecondaryBtn>Disagree</SecondaryBtn>
+					</Box>
+					<Box onClick={agreeDelete}>
+						<SecondaryBtn>Agree</SecondaryBtn>
+					</Box>
         </DialogActions>
       </Dialog>
     </>

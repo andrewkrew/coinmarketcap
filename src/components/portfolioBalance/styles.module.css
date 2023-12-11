@@ -1,38 +1,43 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    row-gap: 5px;
-    width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 5px;
 }
 
 .balance {
-    display: flex;
-    column-gap: 20px;
-    align-items: center;
+	display: flex;
+	column-gap: 20px;
+	align-items: center;
 }
 
 .value {
-    font-size: 30px;
-    font-weight: bold;
+	font-size: 40px;
+	font-weight: bold;
 }
 
 .procent {
-    padding: 10px;
-    border-radius: 5px;
+	padding: 10px;
+	border-radius: 5px;
 }
 
 .profit {
-    text-align: left;
+	text-align: left;
 }
 
 .green {
-    color: white;
-    background-color: green;
+	color: white;
+	background-color: green;
 }
 
 .red {
-    color: black;
-    background-color: red;
+	color: black;
+	background-color: red;
 }
 
+
+@media (max-width: 500px) {
+	/* .balance {
+		flex-direction: column;
+	} */
+}

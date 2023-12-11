@@ -45,8 +45,6 @@ export const setPortfolioTokens = (
 	currency: CoinsAllData[], 
 	transactions: TransactionsPortfolioData[])
 	: TokensPortfolioData[]  => {
-		
-		// if (!transactions.length) return [];
 
 		const uniqIdArray = getUniqTokensId(transactions);
 
@@ -54,7 +52,6 @@ export const setPortfolioTokens = (
 			
 			const currencyData = currency.filter(token => uniqId === token.id)[0];			
 			const transactionsData = transactions.filter(token => uniqId === token.tokenId) 
-			
 			const	totalBuyTokens = getTotalToken(transactionsData, 'buy'); //ok
 			const	totalSellTokens = getTotalToken(transactionsData, 'sell'); //ok
 			const	averageBuyCost = getAverangeCost(transactionsData, 'buy', totalBuyTokens); //ok
@@ -74,7 +71,7 @@ export const setPortfolioTokens = (
 				averageBuyCost, //средний курс покупки
 				averageSellCost, //средний курс продажи
 				currentTokens, //всего токенов (текущий баланс)
-				averagePrice, //средняя цена покупки ???
+				averagePrice, //средняя цена покупки 
 				currentBalance, //текущий вес актива в портфеле
 				currancy: currencyData?.current_price, // текущий курс
 				profit,

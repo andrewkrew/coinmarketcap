@@ -1,29 +1,35 @@
 import { ResponsivePie } from '@nivo/pie' 
 import { useAppSelector } from '../../shared/hooks/useRedux';
-import { portfolioDataSelector } from '../../redux/selectors';
+import { portfolioDataSelector, themeSelector } from '../../redux/selectors';
 import { getDataDonut } from '../../utilits';
+import { UseResizeWidth } from '../../shared/hooks/useResizeWidth';
 
 export const PortfolioDonut = () => { 
 
 	const {tokens} = useAppSelector(portfolioDataSelector);
+	const {theme} = useAppSelector(themeSelector);
 	const dataDonut = getDataDonut(tokens);
+	const {width} = UseResizeWidth();
 
 	return ( 
 		<ResponsivePie 
 			data={dataDonut}  
-			margin={{ top: 20, right: 160, bottom: 80, left: 0 }} 
+			margin={width > 550 
+				? { top: 20, right: 200, bottom: 20, left: 20 } 
+				: { top: 20, right: 160, bottom: 20, left: 20 }} 
 			sortByValue={true} 
 			innerRadius={0.6} 
 			padAngle={2} 
 			cornerRadius={5} 
 			activeOuterRadiusOffset={8} 
-			borderWidth={1} 
+			borderWidth={1}
+			colors={{ scheme: 'nivo' }}
 			borderColor={{ 
 				from: 'color', 
 				modifiers: [ 
 					[ 
 						'darker', 
-						0.2, 
+						0.3, 
 					] 
 				] 
 			}} 
@@ -47,12 +53,12 @@ export const PortfolioDonut = () => {
 					anchor: 'top-right', 
 					direction: 'column', 
 					justify: false, 
-					translateX: 100, 
-					translateY: 20, 
+					translateX: 130, 
+					translateY: width > 400 ? 60 : 0, 
 					itemsSpacing: 20, 
-					itemWidth: 100, 
+					itemWidth: 50, 
 					itemHeight: 18, 
-					itemTextColor: '#999', 
+					itemTextColor: theme === 'light' ? 'black' : 'white', 
 					itemDirection: 'left-to-right', 
 					itemOpacity: 1, 
 					symbolSize: 30, 
@@ -61,12 +67,12 @@ export const PortfolioDonut = () => {
 						{ 
 							on: 'hover', 
 							style: { 
-								itemTextColor: '#000' 
+								itemTextColor: 'grey',
 							} 
 						} 
 					] 
 				} 
-			]} 
+			]}
 		/> 
 	) 
 }

@@ -1,15 +1,16 @@
 .login {
-	background-color: var(--body-color-bcg);
+	/* background-color: var(--body-color-bcg); */
 }
 
 .wrapper {
 	padding-top: 50px;
-	min-height: calc(100vh - 90px);
+	/* min-height: calc(100vh - 90px); */
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
 	row-gap: 50px;
+	margin-bottom: 50px;
 }
 
 .login__title {

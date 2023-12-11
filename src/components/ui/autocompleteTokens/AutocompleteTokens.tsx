@@ -8,6 +8,7 @@ import { portfolioDataSelector } from '../../../redux/selectors';
 import { changeAutocompleteDataType, getIdList } from '../../../utilits';
 import { Box } from '@mui/material';
 import { useDebounce } from '../../../shared/hooks/useDebounce';
+import { inputStyle } from '../../../shared/api/styles';
 
 export const AutocompleteTokens = (
 	{
@@ -75,7 +76,10 @@ export const AutocompleteTokens = (
 				setInputValue(newInputValue);
 			}}
 			id="async__select"
-      sx={{ width: 300 }}
+      sx={{ 
+				width: '80%',
+				...inputStyle,
+			}}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -101,7 +105,6 @@ export const AutocompleteTokens = (
 		if (!value.id) return false		
 		return option.id === value.id || option.name === value.name
 		}}
-
 			getOptionLabel={(option) => `${option.symbol} ${option.name}`}
 			renderOption={(props, option) => (
         <Box

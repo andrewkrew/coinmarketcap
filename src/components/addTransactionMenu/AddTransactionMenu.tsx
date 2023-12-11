@@ -2,7 +2,7 @@ import { TransactionTabs } from "../ui/transactionTabs";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AutocompleteTokens } from '../ui/autocompleteTokens';
-import { Button, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { FormEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { TokensAddTransaction} from "../../shared/api/types";
@@ -11,6 +11,10 @@ import { portfolioCurrancySelector, portfolioDataSelector } from "../../redux/se
 import { fetchSelectredTokenThunk } from "../../redux/portfolioCurrency";
 import { addTransaction } from "../../redux/portfolioData";
 import { getMaxId} from "../../utilits";
+import styles from './styles.module.css'
+import { inputStyle } from "../../shared/api/styles";
+import { MainBtn } from "../ui/mainBtn";
+import { showMessage } from "../../redux";
 
 export const AddTransactionMenu = () => {
 
@@ -36,11 +40,13 @@ export const AddTransactionMenu = () => {
 			totalTokens: +operation === 0 ? +quantity : +(-quantity),
 			totalCostTransaction: +operation === 0 ? +currencyToken * +quantity : +(-currencyToken) * +quantity,
 			date: date.toString(),
+			symbol: token.symbol,
 		}));
 		setOperation(0);
 		setCurrencyToken('0');
 		setQuantity('1');
 		setDate(dayjs());
+		dispatch(showMessage('Transaction added successfully!'))
 	}
 
 	useEffect(() => {
@@ -82,60 +88,62 @@ export const AddTransactionMenu = () => {
 	}
 	
 	return (
-			<div> 
-				<h3>Add transaction</h3>
-				<form action="" method="post" onSubmit={onSubmit}>            
-					<TransactionTabs 
-						operation={operation} 
-						setOperation={setOperation}
-					/>           
-					<AutocompleteTokens 
-						setToken = {setToken} 
-						operation = {operation}
+		<> 
+			<h3 className={styles.title}>Add transaction</h3>
+			<form className={styles.container} action="" method="post" onSubmit={onSubmit}>            
+				<TransactionTabs 
+					operation={operation} 
+					setOperation={setOperation}
+				/>           
+				<AutocompleteTokens 
+					setToken = {setToken} 
+					operation = {operation}
+				/>
+				<TextField
+					id="quantityToken" 
+					label="Quantity" 
+					variant="outlined" 
+					value={quantity}
+					type="number"
+					required
+					sx={{...inputStyle, width: '80%'}}
+					onChange={checkQuantityTokens}
+					InputLabelProps={{
+						shrink: true,
+					}}
+				/>
+				<TextField 
+					id="priceToken" 
+					label="Price" 
+					variant="outlined" 
+					value={currencyToken}
+					type="number"
+					required
+					sx={{...inputStyle, width: '80%'}}
+					onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+						const currency = event.target.value;
+						+currency < 0 ? setCurrencyToken('0') : setCurrencyToken(currency);
+					}}
+					InputLabelProps={{
+						shrink: true,
+					}}
+				/> 
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<DatePicker 
+						defaultValue={dayjs()}
+						value={date}
+						sx={{...inputStyle, width: '80%'}}
+						onAccept={(value) => {
+							if (!value) return;
+							setDate(value);
+						}}
 					/>
-					<div>
-						<TextField
-							id="quantityToken" 
-							label="Quantity" 
-							variant="outlined" 
-							value={quantity}
-							type="number"
-							required
-							onChange={checkQuantityTokens}
-							// onChange={(event: React.ChangeEvent<HTMLInputElement>) => setQuantity(+event.target.value)}
-							InputLabelProps={{
-								shrink: true,
-							}}
-						/>
-						<TextField 
-							id="priceToken" 
-							label="Price" 
-							variant="outlined" 
-							value={currencyToken}
-							type="number"
-							required
-							onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-								const currency = event.target.value;
-								+currency < 0 ? setCurrencyToken('0') : setCurrencyToken(currency);
-							}}
-							InputLabelProps={{
-								shrink: true,
-							}}
-						/> 
-					</div> 
-					<LocalizationProvider dateAdapter={AdapterDayjs}>
-						<DatePicker 
-							defaultValue={dayjs()}
-							value={date}
-							onAccept={(value) => {
-								if (!value) return;
-								setDate(value);
-							}}
-						/>
-					</LocalizationProvider>
-					<div>Total spent: {quantity ? +quantity * +currencyToken : ''}</div>
-					<Button variant="outlined" type="submit">Add transaction</Button>
-				</form>
-			</div>
+				</LocalizationProvider>
+				<div>Total spent: {quantity ? (+quantity * +currencyToken)?.toFixed(2) : ''}</div>
+				<Box onClick={() => onSubmit}>
+					<MainBtn>Add transaction</MainBtn>
+				</Box>
+			</form>
+		</>
 	)
 }

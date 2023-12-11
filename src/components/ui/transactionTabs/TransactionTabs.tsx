@@ -2,13 +2,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Dispatch, SyntheticEvent} from 'react';
+import { orange } from '@mui/material/colors';
 
 export const TransactionTabs = (
 		{operation, setOperation}: 
 		{operation:number, setOperation: Dispatch<React.SetStateAction<number>>}
 	) => {
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
+  const handleChange = (_: SyntheticEvent, newValue: number) => {
     setOperation(newValue);
   };
 
@@ -22,9 +23,19 @@ export const TransactionTabs = (
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={operation} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Buy" {...a11yProps(0)} />
-          <Tab label="Sell" {...a11yProps(1)} />
+        <Tabs 
+					textColor='inherit' 
+					value={operation} 
+					onChange={handleChange} 
+					aria-label="basic tabs example"
+					sx={{
+						color: orange[700],
+						'& .MuiTabs-indicator': {
+							backgroundColor: orange[700],
+						}
+					}}>
+						<Tab color='inherit' sx={{ width: '50%' }} label="Buy" {...a11yProps(0)} />
+						<Tab color='inherit' sx={{ width: '50%' }} label="Sell" {...a11yProps(1)} />
         </Tabs>
       </Box>
     </Box>

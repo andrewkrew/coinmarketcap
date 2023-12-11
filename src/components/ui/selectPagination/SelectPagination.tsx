@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useAppDispatch } from '../../../shared/hooks/useRedux';
 import { setCoinsQnty, setExchangesQnty } from '../../../redux';
+import { inputStyle } from '../../../shared/api/styles';
 
 export const SelectPagination = (
 	{coinsQty, type}
@@ -22,10 +23,11 @@ export const SelectPagination = (
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 100, ...inputStyle }}>
       <FormControl>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">{type}</InputLabel>
         <Select
+					sx={{width: '100px'}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={coinsQty}

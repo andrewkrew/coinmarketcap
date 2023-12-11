@@ -48,6 +48,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
     borderRadius: 20 / 2,
   },
+	'&:hover' : {
+		color: '#ff9800',
+	},
 }));
 
 
@@ -58,13 +61,12 @@ export const ThemeToggleBtn = () => {
 
 	const handleToggleTheme = () => {
 		dispatch(toggleTheme());
-		// if (window.scrollY !== 0)	dispatch(setOffsetY(window.scrollY));
 	}
 
 	return (
 		<FormControlLabel
 			control = {<MaterialUISwitch sx={{ m: 1 }}/> }
-			label = { theme }
+			label = { theme === 'light' ? 'Light' : 'Dark' }
 			checked = {theme === 'light' ? true : false}
 			onChange = { handleToggleTheme }
 		/>

@@ -1,11 +1,45 @@
+.exchanges {
+	margin-bottom: 30px;
+}
+
 .container {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: 70px repeat(3, 1fr);
 	justify-items: center;
+	align-items: center;
+	color: var(--color-text);
+	margin-bottom: 30px;
+}
+
+.title {
+	text-align: center;
+	padding: 30px 0;
+}
+
+.exchangeNumber,
+.exchangeName,
+.exchangeScore,
+.exchangeVolume
+{
+	width: 100%;
+	background-color: var(--header-color-bcg);
+	text-align: center;
+	padding: 15px 0;
+	border-bottom: 1px solid grey;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 @media (max-width: 500px) {
-	/* .notFound {
-			min-height: calc(100vh - 70px);
-		} */
+	.container {
+		grid-template-columns: 70px repeat(2, 1fr);
+	}
+
+	.exchangeVolume {
+		display: none;
+	}
 }

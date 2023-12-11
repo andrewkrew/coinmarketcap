@@ -2,7 +2,6 @@
 	height: 90px;
 	color: var(--color-text);
 	background-color: var(--header-color-bcg);
-	box-shadow: 0 0 20px black;
 	position: sticky;
 	top: 0;
 	z-index: 10;
@@ -19,13 +18,18 @@
 }
 
 .header__siteName{
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: bold;
 	color: var(--color-text);
 	text-decoration: none;
+	transition: color 0.2s ease;
 }
 
-@media (max-width: 768px) {
+.header__siteName:hover {
+	color: #ff9800;
+}
+
+@media (max-width: 900px) {
 	.header__componentHide {
 		display: none;
 	}
@@ -35,9 +39,5 @@
 
 	.header {
 		height: 70px;
-	}
-
-	.header__toggleTheme span{
-		display: none;
 	}
 }

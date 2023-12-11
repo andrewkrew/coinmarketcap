@@ -1,6 +1,8 @@
 .green,
 .red {
 	position: relative;
+	transform: translateX(15px);
+	font-weight: bold;
 }
 
 .array {

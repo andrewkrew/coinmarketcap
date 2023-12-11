@@ -1,9 +1,12 @@
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppSelector } from '../../shared/hooks/useRedux';
 import { portfolioDataSelector } from '../../redux/selectors';
 import { ModalWindow } from '../ui/modalWindow';
 import { AddTransactionMenu } from '../addTransactionMenu';
 import { ModalAlert } from '../ui/modalAlert';
+import styles from './styles.module.css'
+import { PriceIndicator } from '../priceIndicator';
+import { TransactionsData } from '../transactionsData';
+import { TransactionsPortfolioData } from '../../shared/api/types';
 
 export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}) => {
 	
@@ -16,66 +19,50 @@ export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}
 	else {
 		return (
 			<> 
-				<h3>{token.id} Balance</h3>
-				<div>
-					<div>
-						<img src={token.image} alt={token.name} />
-						<p>{token.currentBalance}</p>
-						<p>{token.profit24h?.procent}</p>
+				<h3 className={styles.token__title}>{token.name} ({token.symbol.toUpperCase()}) Balance</h3>
+				<div className={styles.token__info}>
+					<div className={styles.token__priceBlock}>
+						<img className={styles.token__img} src={token.image} alt={token.name} />
+						<p className={styles.token__price}>$ {token.currentBalance}</p>
+						<div className={styles.token__procent}>
+							<PriceIndicator>{token.profit24h?.procent}</PriceIndicator>
+						</div>
 					</div>
-					<ModalWindow btnValue="Add transaction"><AddTransactionMenu/></ModalWindow>
-					<p>ADD CONFIRM</p>
-					<ModalAlert 
-						btnValue={'Delete all transactions'}
-						removeType={'all'}
-						idToken={token.id}>
-						Are you sure you want to delete all transaction?
-					</ModalAlert>
+					<div className={styles.token__buttons}>
+						<ModalWindow btnValue="Add transaction" type='add'>
+							<AddTransactionMenu/>
+						</ModalWindow>
+						<div className={styles.token__alert}>
+							<ModalAlert 
+								btnValue={'Delete all transactions'}
+								removeType={'all'}
+								idToken={token.id}>
+								Are you sure you want to delete all transactions?
+							</ModalAlert>
+						</div>
+					</div>
 				</div>
-				<div>
-					{/* grid */}
+				<div className={styles.token__data}>
 					<p>Quantity</p>
 					<p>Avg. buy price</p>
 					<p>Total profit / loss</p>
-					<p>{token.currentBalance}</p>
-					<p>{token.averagePrice}</p>
-					<p>{`${token.profit.procent}% ($${token.profit.value})`}</p>
+					<p>{token.currentTokens} {token.symbol.toUpperCase()}</p>
+					<p>$ {token.averagePrice}</p>
+					<div className={styles.token__profit}>
+						<PriceIndicator>{token.profit.procent}</PriceIndicator>
+						<p>{`($ ${token.profit.value})`}</p>
+					</div>
 				</div>
-				<div>
-					{/* grid */}
-					<p>Type</p>
-					<p>Date</p>
-					<p>Price</p>
-					<p>Amount</p>
-					<p>Delete</p>
-				</div>
-				<div>
-					{
-						transactions.filter(item => item.tokenId === tokenTransInfoId)
-							.map(item => {
-							return <div key={item.id}>
-									<p>{item.type}</p>
-									<p>{item.date}</p>
-									<p>{item.price}</p>
-									{item.type === 'buy' 
-									? <div>
-										<p>-$ {item.totalCostTransaction}</p>
-										<p>+{token.symbol} {item.totalTokens}</p>
-									</div> 
-									: <div>
-										<p>+$ {item.totalCostTransaction}</p>
-										<p>-{token.symbol} {item.totalTokens}</p>
-									</div> 
-									}
-									<ModalAlert 
-										btnValue={<DeleteForeverIcon/>}
-										removeType='id'
-										idTsx={item.id}>
-										Are you sure you want to delete this transaction?
-									</ModalAlert>
-								</div>
-							})
-					}
+				<h3 className={styles.token__title}>Transactions</h3>
+				<div className={styles.trans__container}>
+					<p className={styles.trans__type}>Type</p>
+					<p className={styles.trans__price}>Price</p>
+					<p className={styles.trans__amount}>Amount</p>
+					<p className={styles.trans__actions}>Actions</p>
+					{transactions.filter(item => item.tokenId === tokenTransInfoId)
+					.map((item :TransactionsPortfolioData) => {
+						return <TransactionsData key={item.id} {...item}/>
+					})}
 				</div>
 			</>
 		)

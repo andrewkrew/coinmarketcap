@@ -1,0 +1,64 @@
+.trans__actions,
+.trans__type,
+.trans__price,
+.trans__amount {
+	padding: 10px 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	border-bottom: 1px solid grey;
+}
+
+.trans__type {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-rows: 1fr 1fr;
+	justify-items: start;
+	align-items: center;
+	column-gap: 10px;
+	row-gap: 5px;
+	text-align: left;
+}
+
+.trans__icon {
+	width: 40px;
+	height: 40px;
+	grid-row: 1 / 3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #ff9800;
+}
+
+.trans__price {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.trans__amount {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 5px;
+}
+
+@media (max-width: 650px) {
+	
+	.trans__type {
+		grid-template-rows: 1fr;
+		row-gap: 0;
+	}
+	
+	.trans__date {
+		display: none;
+	}
+}
+
+@media (max-width: 450px) {
+
+	.trans__price {
+		display: none;
+	}
+}

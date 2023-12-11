@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from "../../shared/hooks/useRedux";
 import { candleSelector } from "../../redux/selectors";
 import { fetchCandleDataThunk } from "../../redux";
 import styles from './styles.module.css'
+import { Box } from "@mui/material";
+import { LoadingCircle } from "../ui/loadingCircle";
 
 export const CandleStickChart = ({coinId = undefined, timeInterval} 
 		: {coinId: string | undefined, timeInterval: string}) => {
@@ -18,7 +20,7 @@ export const CandleStickChart = ({coinId = undefined, timeInterval}
 
 	const options: ApexOptions = {
 		title: {
-			text: 'CandleStick Chart',
+			text: `${coinId?.toUpperCase()} Chart`,
 			align: 'left'
 		},
 		xaxis: {
@@ -35,18 +37,37 @@ export const CandleStickChart = ({coinId = undefined, timeInterval}
 	}
 
 	if(!coinId) return <p>!!!Error!!!</p>
-	if(!coinCandleData) return <p>loading...</p>
+	if(!coinCandleData) return <Box sx={{
+				width: '100%', 
+				height: '100%', 
+				display: 'flex', 
+				justifyContent: 'center', 
+				alignItems: 'center'
+			}}>
+				<LoadingCircle/>
+		</Box>
+
 	return (
 		<div className={styles.chart}>
 			<div>{error && <p>{error}</p>}</div>
-			{ !isLoading ? 
-			<ReactApexChart 
+			{ !isLoading 
+			? <ReactApexChart 
 				options={options} 
 				series={[{data: coinCandleData}]} 
 				type="candlestick" 
 				height={'100%'} 
 				width={'100%'}
-			/> : <p>Loading...</p>}
+			/> 
+			: 
+			<Box sx={{
+				width: '100%', 
+				height: '100%', 
+				display: 'flex', 
+				justifyContent: 'center', 
+				alignItems: 'center'}}>
+					<LoadingCircle/>
+		</Box>
+		}
 		</div>
 	);
 }

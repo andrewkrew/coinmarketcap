@@ -2,6 +2,9 @@ import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../../shared/hooks/useRedux';
 import { coinsSelector } from '../../../redux/selectors';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import styles from './styles.module.css'
+import { inputStyle } from '../../../shared/api/styles';
 
 export const CurrencyConverter = () => {
 	
@@ -15,14 +18,16 @@ export const CurrencyConverter = () => {
 
 	return (
 		<div>
-			<p>{coinDetailData.name} to USD Converter</p>
-			<div>
+			<h4 className={styles.header}>{coinDetailData.name} to USD Converter</h4>
+			<div className={styles.converter}>
 				<TextField
 					id="tokenConverter" 
 					label={coinDetailData.symbol.toUpperCase()} 
 					variant="outlined" 
 					value={tokenValue}
 					type="number"
+					fullWidth
+					sx={{...inputStyle}}
 					onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 						const newValue = event.target.value;
 						if (+newValue < 0) {
@@ -41,12 +46,16 @@ export const CurrencyConverter = () => {
 						setTokenValue((+tokenValue).toString())
 					}}
 				/>
+				<SwapHorizIcon sx={{color: '#ff9800'}}/>
 				<TextField 
 					id="fiatConverter" 
 					label="USD $" 
 					variant="outlined" 
 					value={fiatValue}
+					fullWidth
 					type="number"
+					color='primary'
+					sx={{...inputStyle, color:'inherit'}}
 					onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 						const newValue = event.target.value;
 						if (+newValue < 0) {

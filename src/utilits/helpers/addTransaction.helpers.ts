@@ -2,7 +2,6 @@ import {
 	CoinsAllData,
 	ExchangesAllData,
 	MarketData, 
-	// TokensAddTransaction, 
 	TokensPortfolioData, 
 	TransactionsPortfolioData,
 	searchCoinsData,
@@ -29,15 +28,6 @@ export const getIdList = (tokens: TokensPortfolioData[], fetchData: MarketData[]
 				large: item.image,
 			} as searchCoinsData)
 		} else {
-			// return {
-			// 	id: '',
-			// 	name: '',
-			// 	symbol: '',
-			// 	thumb: '',
-			// 	api_symbol: '',
-			// 	large: '',
-			// 	market_cap_rank: 1,
-			// } as searchCoinsData;
 			return {} as searchCoinsData
 		}
 	})

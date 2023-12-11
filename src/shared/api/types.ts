@@ -139,6 +139,7 @@ export interface TransactionsPortfolioData {
 	totalCostTransaction: number,
 	date: string,
 	comment?: string,
+	symbol: string,
 }
 
 interface ProfitData {

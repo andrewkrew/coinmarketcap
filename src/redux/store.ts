@@ -12,6 +12,7 @@ import { authReducer, candleReducer, coinsReducer, exchangesReducer, themeToggle
 import { portfolioCurrencyReducer } from './portfolioCurrency'
 import { portfolioDataReducer } from './portfolioData'
 import { paginationReducer } from './pagination'
+import { snackbarReducer } from './snackbar'
 
 const rootStore = combineReducers({
 	auth: authReducer,
@@ -22,12 +23,13 @@ const rootStore = combineReducers({
 	portfolioData: portfolioDataReducer,
 	candleData: candleReducer,
 	pagination: paginationReducer,
+	snackbar: snackbarReducer,
 })
 
 const persistConfig = {
   key: 'root',
 	storage,
-	blacklist: ['pagination'],
+	blacklist: ['pagination', 'snackbar'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootStore)

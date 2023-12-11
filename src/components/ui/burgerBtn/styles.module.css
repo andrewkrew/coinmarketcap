@@ -15,10 +15,11 @@
 	width: 40px;
 	background-color: var(--color-text);
 	margin: 8px auto 0;
+	transition: transform 0.3s ease, opacity 0.15s ease;
 }
 
 .active .first__row {
-	transform: translateY(10px) rotate(45deg) ;
+	transform: translateY(10px) rotate(45deg);
 }
 
 .active .second__row {
@@ -29,7 +30,7 @@
 	transform: translateY(-10px) rotate(-45deg);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 	.button__burger {
 		display: block;
 	}

@@ -1,65 +1,170 @@
-.wrapper {
-	padding-top: 50px;
-}
-
-.home {
-	min-height: calc(100vh - 90px);
-	background: linear-gradient(360deg, rgba(168, 168, 168, 0.9) 0%, #e7f0fce6 100%),
-				url('../../../public/image/home.png') no-repeat center;
-	background-size: cover;
-	color: var(--color-text);
-}
-
-.home_dark {
-	background: linear-gradient(360deg, rgba(189, 189, 189, 0.9) 0%, #253046e6 100%),
-				url('../../../public/image/home.png') no-repeat center;
-	background-size: cover;
-}
-
-.home__banner {
-	padding: 20px 0;
+.banner {
 	height: 500px;
+	position: relative;
+}
+
+.video {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top;
+}
+
+.video__mask {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background: radial-gradient(circle, rgba(255, 255, 255, 0.8912158613445378) 0%, rgba(173, 173, 173, 1) 79%, rgba(139, 139, 139, 1) 100%);
+	opacity: 0.85;
+}
+
+.video__mask_dark {
+	background: radial-gradient(circle, rgba(179, 179, 179, 0.8912158613445378) 0%, rgba(83, 83, 83, 1) 79%, rgba(0, 0, 0, 1) 100%);
+}
+
+.wrapper {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: calc(100% / 2);
+	transform: translateX(-50%);
+	z-index: 3;
+}
+
+.banner__info {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-evenly;
-}
-
-.home__title {
-	text-transform: uppercase;
-	font-size: 50px;
-	text-align: center;
 	color: var(--color-text);
 }
 
-.home_dark .home__title {
-	text-shadow: 0 0 3px black;
+.banner__title {
+	font-size: 55px;
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 80px;
+	padding: 0 10%;
 }
 
-.home__info {
-	text-align: justify;
+.banner__link {
+	color: #ff9800;
 }
 
-.home__link {
-	text-decoration: none;
+.banner__desc {
+	text-align: center;
 }
 
-@media (max-width: 1000px) {
-	.home__banner {
-		height: 300px;
-	}
+.infoBlock {
+	padding: 30px 0;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	grid-template-rows: 1fr 1fr;
+	row-gap: 20px;
+	column-gap: 20px;
 }
 
-@media (max-width: 500px) {
-	.wrapper {
-		padding-top: 30px;
-	}
+.infoBlock__title {
+	font-size: 30px;
+	color: #ff9800;
+	align-self: self-end;
+}
 
-	.home {
-		min-height: calc(100vh - 70px);
-	}
+.aboutBackground {
+	grid-row: 1 / 3;
+	grid-column: 2 / 3;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 400px;
+}
 
-	.home__title {
+.infoBlock:nth-child(even) {
+	grid-template-columns: 2fr 1fr;
+}
+
+.infoBlock:nth-child(even) .aboutBackground {
+	grid-column: 1 / 2
+}
+
+.aboutBackground_1 {
+	background-image: url(https://images.ctfassets.net/9sy2a0egs6zh/78HoDbPwuWz8M6er6joJdE/c440f3e5d7262a424f13da69a46e958a/wallet-illo.svg);
+}
+
+.aboutBackground_2 {
+	background-image: url(https://images.ctfassets.net/9sy2a0egs6zh/5w0q0fWbGtmiSts6oIDJ5x/6746f0e6d562c0e8315d841eb4c85f87/Explore-illo.svg);
+}
+
+.aboutBackground_3 {
+	background-image: url(https://images.ctfassets.net/9sy2a0egs6zh/Cgl4g0Z2URG5PhRXT7CjP/54984377c95ba08d7aa5b36acb038b61/Browse-illo.svg);
+}
+
+.infoBlock__desc {
+	justify-self: start;
+	align-self: self-start;
+	font-size: 18px;
+}
+
+@media (max-width: 768px) {
+	.banner__title {
 		font-size: 30px;
+		line-height: 35px;
+		padding: 0;
+	}
+
+	.infoBlock {
+		padding: 30px 0;
+		grid-template-columns: 2fr 1fr;
+		grid-template-rows: auto auto;
+	}
+
+	.infoBlock:nth-child(even) {
+		grid-template-columns: 	1fr 2fr;
+	}
+
+	.infoBlock:nth-child(even) .aboutBackground {
+		grid-column: 1 / 2
+	}
+
+	.aboutBackground {
+		height: 200px;
+	}
+}
+
+@media (max-width: 600px) {
+	.infoBlock {
+		padding: 40px 0;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto auto auto;
+		justify-items: center;
+		column-gap: 0;
+	}
+
+	.infoBlock:nth-child(even) {
+		grid-template-columns: 1fr;
+	}
+
+	.infoBlock:nth-child(even) .aboutBackground {
+		grid-column: 1 / 2;
+	}
+
+	.aboutBackground {
+		grid-row: 1 / 2;
+		grid-column: 1 / 2;
+		width: 100%;
+	}
+
+	.infoBlock__title {
+		grid-row: 2 / 3;
+	}
+
+	.infoBlock__desc {
+		grid-row: 3 / 4;
 	}
 }

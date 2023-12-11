@@ -1,1 +1,1 @@
-export * from './TransactionsList'
+export * from './TokensListData'

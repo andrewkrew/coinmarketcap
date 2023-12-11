@@ -3,26 +3,20 @@ import styles from './styles.module.css'
 import { NavigatonMenu } from '../../navigatonMenu'
 import { ThemeToggleBtn } from '../../ui/themeToggleBtn'
 import { AuthBtn } from '../../ui/authBtn'
-// import { useState } from 'react';
-// import { MenuHeader } from '../menuHeader'
-// import { ThemeToggle } from '../themeToggle';
-// import { BurgerMenu } from '../burgerMenu';
-// import { Link } from 'react-router-dom';
-// import { useAppDispatch } from '../../shared/hooks/useRedux';
-// import { BurgerBtn } from '../../ui/burgerBtn';
+import { useState } from 'react';
+import { BurgerBtn } from '../../ui/burgerBtn';
+import { BurgerMenu } from '../../burgerMenu'
 
 export const Header = () => {
 	
-	// const [isActiveBurger, setIsActiveBurger] = useState<boolean>(false);
-	// const dispatch = useAppDispatch();
+	const [isActiveBurger, setIsActiveBurger] = useState<boolean>(false);
 
 	return (
 	<header className={styles.header}>
 		<div className={styles.header__wrapper}>
 			<Link 
-				// onClick={(clearOffsetY)}
 				className={styles.header__siteName} to='/'>
-				<p>CoinMarketCap</p>
+				Coinmarketcap
 			</Link>
 			<div className={styles.header__componentHide}>
 				<NavigatonMenu/>
@@ -30,11 +24,11 @@ export const Header = () => {
 			<div className={styles.header__componentHide}>
 				<ThemeToggleBtn/>
 			</div>
-			<div>
+			<div className={styles.header__componentHide}>
 				<AuthBtn/>
 			</div>
-			{/* <BurgerBtn isActive={isActiveBurger} setIsActive={setIsActiveBurger}/>
-			<BurgerMenu isActive={isActiveBurger}/> */}
+			<BurgerBtn isActive={isActiveBurger} setIsActive={setIsActiveBurger}/>
+			<BurgerMenu isActive={isActiveBurger}/>
 		</div>
 	</header>
 	)

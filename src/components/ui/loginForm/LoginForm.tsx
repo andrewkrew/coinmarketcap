@@ -5,7 +5,8 @@ import { IconEye, IconEyeClosed } from '@tabler/icons-react';
 import { useAppSelector } from "../../../shared/hooks/useRedux";
 import { authSelector } from "../../../redux/selectors";
 // import { loginThunk } from "../../../redux";
-import { Button } from "@mui/material";
+import { Box } from "@mui/material";
+import { MainBtn } from "../mainBtn";
 
 export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password: string) => void}) => {
 	
@@ -81,7 +82,9 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 						</div>
 					</div>
 				</label>
-				<Button type="submit">Login</Button>
+				<Box onClick={() => handleSubmit}>
+					<MainBtn>Submit</MainBtn>
+				</Box>
 			</form>
 			{error && isAuth ? <p className={styles.login__message}>Something went wrong! Try again</p> : ''}
 		</div>

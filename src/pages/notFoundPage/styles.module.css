@@ -7,7 +7,7 @@
 }
 
 .notFound {
-	min-height: calc(100vh - 90px);
+	min-height: 100vh;
 	background-color: var(--body-color-bcg);
 	color: var(--color-text);
 	text-align: center;

@@ -3,6 +3,7 @@ import { LoginForm } from "../../components/ui/loginForm"
 import { useAppDispatch } from "../../shared/hooks/useRedux"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../redux";
+import styles from './styles.module.css'
 
 export const LoginPage = () => {
 	
@@ -34,10 +35,10 @@ export const LoginPage = () => {
 	}
 
 	return (
-		<div>
-			<h1>Login</h1>
+		<section className={`wrapper ${styles.login}`}>
+			<h1 className={styles.header}>Login</h1>
 			<LoginForm handleLogin={handleLogin}/>
-			<p>Or <Link to={'/signup'}>Register</Link></p>
-		</div>
+			<p className={styles.redirect}>Or <Link to={'/signup'}>Register</Link> on site</p>
+		</section>
 	)
 }

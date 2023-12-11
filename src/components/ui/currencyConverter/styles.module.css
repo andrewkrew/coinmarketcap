@@ -1,0 +1,21 @@
+.header {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.converter {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 10px;
+	margin-bottom: 30px;
+}
+
+@media (max-width: 425px) {
+	.converter {
+		column-gap: 0px;
+		flex-direction: column;
+		row-gap: 5px;
+	}
+}

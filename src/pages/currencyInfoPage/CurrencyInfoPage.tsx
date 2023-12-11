@@ -5,10 +5,12 @@ import { CandleStickChart } from '../../components/candleStickChart';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/useRedux';
 import { coinsSelector } from '../../redux/selectors';
 import { fetchCoinDetailsThunk } from '../../redux';
-import { Button } from '@mui/base';
 import { CurrencyConverter } from '../../components/ui/currencyConverter';
-import { Link } from '@mui/material';
+import { Box, Button, Link } from '@mui/material';
 import { useScrollTop } from '../../shared/hooks/useScrolltop';
+import { LoadingCircle } from '../../components/ui/loadingCircle';
+import { SecondaryBtn } from '../../components/ui/secondaryBtn';
+import { PriceIndicator } from '../../components/priceIndicator';
 
 export const CurrencyInfoPage = () => {
 	
@@ -25,53 +27,85 @@ export const CurrencyInfoPage = () => {
 	}, [dispatch, coinId])
 
 	return (
-		<section className={styles.notFound}>
+		<section className={`wrapper ${styles.tokenPage}`}>
 			<div>{error && <p>{error}</p>}</div>
 			{
 				(!isLoading) ? (Object?.keys(coinDetailData).length !== 0 ?
 			<>
-				<h1>
-					<img 
-						src={coinDetailData.image.small} 
-						alt={coinId}
-					/>
-					{coinDetailData.name} {coinDetailData.symbol.toUpperCase()}
-				</h1>
-				<Button onClick={() => navigate(-1)}>Back</Button>
-				
-				<div>
-					<Button onClick={() => setTimeInterval('1')}>1d</Button>
-					<Button onClick={() => setTimeInterval('7')}>7d</Button>
-					<Button onClick={() => setTimeInterval('30')}>1mounth</Button>
-					<Button onClick={() => setTimeInterval('365')}>1year</Button>
-					<Button onClick={() => setTimeInterval('max')}>all time</Button>
+				<div className={styles.header}>
+					<Box onClick={() => navigate(-1)}>
+						<SecondaryBtn>Back</SecondaryBtn>
+					</Box>
+					<div className={styles.title}>
+						<img 
+							src={coinDetailData.image.large} 
+							alt={coinId}
+							className={styles.image}
+						/>
+						{coinDetailData.name} {coinDetailData.symbol.toUpperCase()}
+					</div>
+					<p className={styles.price}>$ {coinDetailData.market_data.current_price.usd}</p>
+				</div>			
+				<div className={styles.buttons}>
+					<Button color='inherit' size='small' onClick={() => setTimeInterval('1')}>1d</Button>
+					<Button color='inherit' size='small' onClick={() => setTimeInterval('7')}>7d</Button>
+					<Button color='inherit' size='small' onClick={() => setTimeInterval('30')}>1mounth</Button>
+					<Button color='inherit' size='small' onClick={() => setTimeInterval('365')}>1year</Button>
+					<Button color='inherit' size='small' onClick={() => setTimeInterval('max')}>all time</Button>
 				</div>
-				<CandleStickChart coinId={coinId} timeInterval={timeInterval}/>
-				<CurrencyConverter/>
-				<div className={styles.coin__info}>
-					<div>
-						<p>Price: $ {coinDetailData.market_data.current_price.usd}</p>
-						<p>Price 24h: $ {coinDetailData.market_data.price_change_24h}</p>
-						<p>Price 24h: {coinDetailData.market_data.price_change_percentage_24h?.toFixed(2)} %</p>
+				<div className={styles.candleChart}>
+					<CandleStickChart coinId={coinId} timeInterval={timeInterval}/>		
+				</div>
+				<div className={styles.coinContainer}>
+					<div className={styles.left_bar}>
+						<CurrencyConverter/>
+						<div className={styles.coin__info}>
+							<p>Price:</p>
+							<p>$ {coinDetailData.market_data.current_price.usd}</p>
+							<p>Price 24h $:</p>
+							<p>$ {coinDetailData.market_data.price_change_24h}</p>
+							<p>Price 24h %:</p>
+							<div>				
+								<PriceIndicator>
+									{+coinDetailData.market_data.price_change_percentage_24h?.toFixed(2)}
+								</PriceIndicator>
+							</div>
+							<p>Market_cap_rank:</p>
+							<p>{coinDetailData.market_cap_rank}</p>
+							<p>Market_cap: $</p>
+							<p>{coinDetailData.market_data.market_cap.usd.toLocaleString('en')}</p>
+							<p>Total Volume: $</p>
+							<p>{coinDetailData.market_data.total_volume.usd.toLocaleString('en')}</p>
+							<p>Circulating supply:</p>
+							<p>{(+coinDetailData.market_data.circulating_supply.toFixed(0)).toLocaleString('en')} {coinDetailData.symbol.toUpperCase()}</p>
+							<p>Total supply:</p>
+							<p>{(+coinDetailData.market_data.total_supply.toFixed(0)).toLocaleString('en')} {coinDetailData.symbol.toUpperCase()}</p>
+							<p>ATH: $</p>
+							<p>{coinDetailData.market_data.ath.usd}</p>
+							<p>Date:</p>				
+							<p>{coinDetailData.market_data.ath_date.usd}</p>			
+							<p>Links:</p>	
+							<div>
+								<Link sx={{mr: 1}} target='_blank' rel="noopener" href={coinDetailData.links.homepage[0]}>Homepage</Link>
+								<Link target='_blank' rel="noopener" href={coinDetailData.links.blockchain_site[0]}>Blockchin Site</Link>
+							</div>			
+							<p>Genesis date:</p>
+							<p>{coinDetailData.genesis_date}</p>
+						</div>
 					</div>
-					<p>Market_cap_rank: {coinDetailData.market_cap_rank}</p>
-					<p>Market_cap: $ {coinDetailData.market_data.market_cap.usd}</p>
-					<p>Total Volume: $ {coinDetailData.market_data.total_volume.usd}</p>
-					<p>Circulating supply: {coinDetailData.market_data.circulating_supply} {coinDetailData.symbol.toUpperCase()}</p>
-					<p>Total supply: {coinDetailData.market_data.total_supply} {coinDetailData.symbol.toUpperCase()}</p>
-					<div>
-						<p>ATH: $ {coinDetailData.market_data.ath.usd}</p>
-						<p>Date: {coinDetailData.market_data.ath_date.usd}</p>
-					</div>
-					
-
-					<Link target='_blank' rel="noopener" href={coinDetailData.links.homepage[0]}>Homepage</Link>
-					<Link target='_blank' rel="noopener" href={coinDetailData.links.blockchain_site[0]}>Blockchin Site</Link>
-					<p>Genesis date: {coinDetailData.genesis_date}</p>
-					<p dangerouslySetInnerHTML={{__html:coinDetailData.description.en}}></p>
+					<p className={styles.coin__desc} dangerouslySetInnerHTML={{__html:coinDetailData.description.en}}></p>
 				</div>
 			</>
-			: '') : <p>Loading...</p>}
+			: '') 
+			: <Box sx={{
+				width: '100vw', 
+				height: '80vh', 
+				display: 'flex', 
+				justifyContent: 'center', 
+				alignItems: 'center'
+			}}>
+				<LoadingCircle/>
+		</Box>}
 		</section>
 	)
 }

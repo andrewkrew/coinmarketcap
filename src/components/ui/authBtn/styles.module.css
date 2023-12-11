@@ -1,0 +1,15 @@
+.header__login {
+	display: flex;
+	justify-content: space-between;
+	column-gap: 10px;
+}
+
+.header__icon {
+	color: #ff9800;
+}
+
+.header__logout {
+	display: flex;
+	justify-content: space-between;
+	column-gap: 10px;
+}

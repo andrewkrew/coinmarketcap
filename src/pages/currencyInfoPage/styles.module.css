@@ -1,29 +1,99 @@
-.wrapper {
-	padding-top: 50px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	row-gap: 50px;
-}
-
-.notFound {
-	min-height: calc(100vh - 90px);
-	background-color: var(--body-color-bcg);
+.tokenPage {
+	padding: 30px 15px;
 	color: var(--color-text);
-	text-align: center;
-}
-.notFound__message {
-	font-size: 50px;
 }
 
-.notFound__btn {
-	text-decoration: none;
+.header {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	column-gap: 20px;
+	justify-items: center;
+	align-items: center;
+	margin-bottom: 30px;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.title {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	column-gap: 20px;
+	font-size: 40px;
+	font-weight: bold;
 }
 
-@media (max-width: 500px){
-	.notFound {
-			min-height: calc(100vh - 70px);
-		}
+.image {
+	display: block;
+	width: 50px;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 10px;
+	margin-bottom: 20px;
+}
+
+.candleChart {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+.coinContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+	column-gap: 40px;
+}
+
+.left_bar {
+	width: 100%;
+}
+
+.coin__info {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: 40px;
+	row-gap: 10px;
+}
+
+.coin__desc {
+	text-indent: 3ch;
+	text-align: justify;
+}
+
+@media (max-width: 700px){
+
+	.header {
+		column-gap: 10px;
+		font-size: 20px;
+	}
+
+	.title {
+		column-gap: 10px;
+		font-size: 20px;
+	}
+	
+	.coinContainer {
+		display: grid;
+		grid-template-columns: 1fr;
+		row-gap: 40px;
+		column-gap: 0;
+	}
+
+	.coin__info {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (max-width: 425px) {
+	.buttons {
+		column-gap: 5px;
+		flex-wrap: wrap;
+	}
 }
