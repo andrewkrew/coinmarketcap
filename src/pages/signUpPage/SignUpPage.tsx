@@ -2,8 +2,9 @@ import { Link } from "react-router-dom"
 import { LoginForm } from "../../components/ui/loginForm"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useAppDispatch } from "../../shared/hooks/useRedux";
-import { setUser } from "../../redux";
+import { setUser, showMessage } from "../../redux";
 import styles from './styles.module.css'
+import { SnackbarError } from "../../components/ui/snackbarError";
 
 export const SignUpPage = () => {
 	
@@ -30,6 +31,7 @@ export const SignUpPage = () => {
 				dispatch(setUser({
 					error: errorMessage,
 				}))
+			dispatch(showMessage(errorCode))
 			});
 	}
 
@@ -38,6 +40,7 @@ export const SignUpPage = () => {
 			<h1 className={styles.header}>Sign up</h1>
 			<LoginForm handleLogin={handleLogin}/>
 			<p>Already have an account? <Link to={'/login'}>Login</Link></p>
+			<SnackbarError/>
 		</section>
 	)
 }

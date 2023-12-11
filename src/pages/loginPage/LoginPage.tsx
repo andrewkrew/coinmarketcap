@@ -2,8 +2,9 @@ import { Link } from "react-router-dom"
 import { LoginForm } from "../../components/ui/loginForm"
 import { useAppDispatch } from "../../shared/hooks/useRedux"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { setUser } from "../../redux";
+import { setUser, showMessage } from "../../redux";
 import styles from './styles.module.css'
+import { SnackbarError } from "../../components/ui/snackbarError";
 
 export const LoginPage = () => {
 	
@@ -14,7 +15,6 @@ export const LoginPage = () => {
 		signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			const user = userCredential.user;
-			console.log(user);
 			dispatch(setUser({
 				authorization: true,
 				email: user.email,
@@ -26,11 +26,10 @@ export const LoginPage = () => {
 		.catch((error) => {
 			const errorCode = error.code;
 			const errorMessage = error.message;
-			console.log(errorCode);
-			console.log(errorMessage);
 			dispatch(setUser({
 				error: errorMessage,
 			}))
+			dispatch(showMessage(errorCode))
 		});
 	}
 
@@ -39,6 +38,7 @@ export const LoginPage = () => {
 			<h1 className={styles.header}>Login</h1>
 			<LoginForm handleLogin={handleLogin}/>
 			<p className={styles.redirect}>Or <Link to={'/signup'}>Register</Link> on site</p>
+			<SnackbarError/>
 		</section>
 	)
 }

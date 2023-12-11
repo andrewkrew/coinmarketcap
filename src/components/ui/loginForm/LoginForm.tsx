@@ -13,9 +13,7 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 	const location = useLocation();
 	const navigate = useNavigate();
 	const {authorization, error} = useAppSelector(authSelector)
-	// const dispatch = useAppDispatch();
-
-	const [isAuth, setIsAuth] = useState(false);
+	const [errorMsg, setErrorMsg] = useState('');
 	const [passwordType, setPasswordType] = useState('password');
 
 	const fromPage = location?.state?.from?.pathname || '/';	
@@ -32,16 +30,21 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 		const formData = new FormData(event.currentTarget);
 		const email = formData.get('email')?.toString();
 		const password = formData.get('password')?.toString();
+
+		if (!email) {
+			setErrorMsg('Please enter your Email');
+			return;
+		}
+		if (password && password?.trim()?.length < 6) {
+			setErrorMsg('Password is less than 6 symbols');
+			return;
+		} 
 		
-		if (email && password) {
+		if (email && password && password?.trim()?.length >= 6) {
 			// dispatch(loginThunk({login, password}));
 			handleLogin(email, password);
-			console.log(email);
-			console.log(password);
-			
-			
+			setErrorMsg(error as string);
 		}
-		setIsAuth(true);
 	}
 
 	const toggleType = () => {
@@ -86,7 +89,7 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 					<MainBtn>Submit</MainBtn>
 				</Box>
 			</form>
-			{error && isAuth ? <p className={styles.login__message}>Something went wrong! Try again</p> : ''}
+			{error && !authorization ? <p className={styles.login__message}>{errorMsg}</p> : ''}
 		</div>
 	</section>
 	)

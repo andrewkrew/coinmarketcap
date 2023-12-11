@@ -1,7 +1,3 @@
-.login {
-	/* background-color: var(--body-color-bcg); */
-}
-
 .wrapper {
 	padding-top: 50px;
 	/* min-height: calc(100vh - 90px); */
@@ -80,7 +76,7 @@
 }
 
 .login__message {
-	color: var(--color-text);
+	color: red;
 }
 
 @media (max-width: 500px) {
