@@ -2,10 +2,13 @@ import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useAppDispatch } from '../../../shared/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/useRedux';
 import { removeAllTransactions, removeTransaction, showMessage } from '../../../redux';
 import { Box } from '@mui/material';
 import { SecondaryBtn } from '../secondaryBtn';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from '../../../firebase';
+import { authSelector, portfolioDataSelector } from '../../../redux/selectors';
 
 interface Props {
 	children: string,
@@ -18,7 +21,8 @@ interface Props {
 export const ModalAlert = ({children, btnValue, removeType, idTsx, idToken}: Props) => {
   const [open, setOpen] = React.useState(false);
 	const dispatch = useAppDispatch();
-
+	const {id} = useAppSelector(authSelector);
+	const {transactions} = useAppSelector(portfolioDataSelector);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,14 +32,25 @@ export const ModalAlert = ({children, btnValue, removeType, idTsx, idToken}: Pro
     setOpen(false);
   };
 
-	const agreeDelete = () => {
+	const agreeDelete = async () => {
 		handleClose();
+		const coinRef = doc(db, "transactions", id);
 		if (removeType === 'all' && idToken) {
 			dispatch(removeAllTransactions(idToken));
-			dispatch(showMessage('All transactions deleted seccessfuly!'))
+			dispatch(showMessage('All transactions deleted seccessfuly!'));
+			await setDoc(
+        coinRef,
+        { transactions: transactions.filter((item) => item.tokenId !== idToken)},
+        { merge: true }
+      );
 		} else if (idTsx) {
 			dispatch(removeTransaction(idTsx));
-			dispatch(showMessage('Transaction deleted seccessfuly!'))
+			dispatch(showMessage('Transaction deleted seccessfuly!'));
+			await setDoc(
+        coinRef,
+        { transactions: transactions.filter((item) => item.id !== idTsx) },
+        { merge: true }
+      );
 		}
 	}
 

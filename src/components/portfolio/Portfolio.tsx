@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { portfolioCurrancySelector, portfolioDataSelector } from "../../redux/selectors";
+import { authSelector, portfolioCurrancySelector, portfolioDataSelector } from "../../redux/selectors";
 import { useAppDispatch, useAppSelector } from "../../shared/hooks/useRedux";
 import { BestWorstInvest } from "../bestWorstInvest";
 import { PortfolioAssets } from "../portfolioAssets";
@@ -12,6 +12,8 @@ import { findBestInvest, findWhorstInvest, getUniqTokensId, setPortfolioTokens, 
 import { ModalWindow } from "../ui/modalWindow";
 import { AddTransactionMenu } from "../addTransactionMenu";
 import { SnackbarSuccess } from "../ui/snackbarSuccess";
+import { onSnapshot, doc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 
 export const Portfolio = () => {
@@ -19,10 +21,11 @@ export const Portfolio = () => {
 	const dispatch = useAppDispatch();
 	const {isLoading, portfolioCurrencyData, error} = useAppSelector(portfolioCurrancySelector);
 	const {tokens, transactions} = useAppSelector(portfolioDataSelector)
+	const {authorization, id} = useAppSelector(authSelector)
 
 	useEffect(() => {
 		dispatch(fetchPortfolioCurrencyThunk(setPortfolioUpdateData(getUniqTokensId(transactions))))
-	}, [dispatch, transactions])
+	}, [dispatch, transactions, authorization, id])
 
 	useEffect(() => {			
 		if (Object.keys(portfolioCurrencyData).length && !isLoading) {			
@@ -30,6 +33,24 @@ export const Portfolio = () => {
 			dispatch(updateTokens(updatedTokens));
 		}
 	}, [dispatch, portfolioCurrencyData, isLoading])
+
+	useEffect(() => {
+		if (authorization && Object.keys(portfolioCurrencyData).length && !isLoading) {
+			const coinRef = doc(db, "transactions", id);
+			const unsubscribe = onSnapshot(coinRef, (trans) => {
+				if (trans.exists()) {
+					const updatedTokens = setPortfolioTokens(portfolioCurrencyData, trans.data().transactions);
+					dispatch(updateTokens(updatedTokens));
+				}
+			});
+
+			return () => {
+				unsubscribe();
+			};
+		}
+	}, [authorization, id, dispatch, portfolioCurrencyData, isLoading]);
+
+
 
 	if (tokens.length === 0 || !tokens) {
 		return (

@@ -17,7 +17,7 @@ const getDonutObjects = (tokens: TokensPortfolioData[]): DonutData[] => {
 		return ({
 			id: item.id,
 			label: item.name,
-			value: +item.currentBalance.toFixed(2),
+			value: +item.currentBalance?.toFixed(2),
 		})
 	})
 }
@@ -37,7 +37,7 @@ const addOtherValue = (sortedData: DonutData[], tokens: TokensPortfolioData[]) =
 			{
 				id: 'other',
 				label: 'Other',
-				value: +(currentBalance - currentBalanceSorted).toFixed(2),
+				value: +(currentBalance - currentBalanceSorted)?.toFixed(2),
 			}
 		]
 	)

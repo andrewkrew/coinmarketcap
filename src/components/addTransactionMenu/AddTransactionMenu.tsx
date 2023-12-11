@@ -5,9 +5,9 @@ import { AutocompleteTokens } from '../ui/autocompleteTokens';
 import { Box, TextField } from '@mui/material';
 import { FormEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { TokensAddTransaction} from "../../shared/api/types";
+import { TokensAddTransaction, TransactionsPortfolioData} from "../../shared/api/types";
 import { useAppDispatch, useAppSelector } from "../../shared/hooks/useRedux";
-import { portfolioCurrancySelector, portfolioDataSelector } from "../../redux/selectors";
+import { authSelector, portfolioCurrancySelector, portfolioDataSelector } from "../../redux/selectors";
 import { fetchSelectredTokenThunk } from "../../redux/portfolioCurrency";
 import { addTransaction } from "../../redux/portfolioData";
 import { getMaxId} from "../../utilits";
@@ -15,6 +15,8 @@ import styles from './styles.module.css'
 import { inputStyle } from "../../shared/api/styles";
 import { MainBtn } from "../ui/mainBtn";
 import { showMessage } from "../../redux";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 export const AddTransactionMenu = () => {
 
@@ -25,14 +27,15 @@ export const AddTransactionMenu = () => {
 	const [date, setDate] = useState<dayjs.Dayjs>(dayjs());
 
 	const {selectedToken} = useAppSelector(portfolioCurrancySelector);
-	const {transactions, tokens} = useAppSelector(portfolioDataSelector)
+	const {transactions, tokens} = useAppSelector(portfolioDataSelector);
+	const {id} = useAppSelector(authSelector);
 	const dispatch = useAppDispatch();
 
-	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (!Object.keys(token).length || !currencyToken || +quantity === 0 || !date) return;
 		
-		dispatch(addTransaction({
+		const transactionData: TransactionsPortfolioData = {
 			id: getMaxId(transactions),
 			tokenId: token.id,
 			type: operation === 0 ? 'buy' : 'sell',
@@ -41,7 +44,17 @@ export const AddTransactionMenu = () => {
 			totalCostTransaction: +operation === 0 ? +currencyToken * +quantity : +(-currencyToken) * +quantity,
 			date: date.toString(),
 			symbol: token.symbol,
-		}));
+		}
+		
+		dispatch(addTransaction(transactionData));
+
+		const coinRef = doc(db, "transactions", id);
+		await setDoc(
+			coinRef,
+			{ transactions: transactions ? [...transactions, transactionData] : [transactionData] },
+			{ merge: true }
+		); 
+
 		setOperation(0);
 		setCurrencyToken('0');
 		setQuantity('1');
