@@ -18,6 +18,7 @@
 .coinName {
 	justify-content: flex-start;
 	column-gap: 10px;
+	cursor: pointer;
 }
 
 .coinLogo {

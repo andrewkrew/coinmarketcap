@@ -7,6 +7,7 @@ import styles from './styles.module.css'
 import { PriceIndicator } from '../priceIndicator';
 import { TransactionsData } from '../transactionsData';
 import { TransactionsPortfolioData } from '../../shared/api/types';
+import dayjs from 'dayjs';
 
 export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}) => {
 	
@@ -59,7 +60,8 @@ export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}
 					<p className={styles.trans__price}>Price</p>
 					<p className={styles.trans__amount}>Amount</p>
 					<p className={styles.trans__actions}>Actions</p>
-					{transactions.filter(item => item.tokenId === tokenTransInfoId)
+					{[...transactions].filter(item => item.tokenId === tokenTransInfoId)
+					.sort((a, b) => dayjs(b.date).unix() - dayjs(a.date).unix())
 					.map((item :TransactionsPortfolioData) => {
 						return <TransactionsData key={item.id} {...item}/>
 					})}
