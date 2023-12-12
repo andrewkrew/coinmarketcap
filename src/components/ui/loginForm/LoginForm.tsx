@@ -89,7 +89,8 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 					<MainBtn>Submit</MainBtn>
 				</Box>
 			</form>
-			{error && !authorization ? <p className={styles.login__message}>{errorMsg}</p> : ''}
+			{/* {error && !authorization ? <p className={styles.login__message}>{errorMsg}</p> : ''} */}
+			{error ? <p className={styles.login__message}>{errorMsg}</p> : ''}
 		</div>
 	</section>
 	)

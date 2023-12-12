@@ -23,6 +23,9 @@ export const portfolioDataSlice = createSlice({
 		updateTokens: (state, action: PayloadAction<TokensPortfolioData[]>) => {
 			state.tokens = action.payload;
 		},
+		updateTransactions: (state, action: PayloadAction<TransactionsPortfolioData[]>) => {
+			state.transactions = action.payload;
+		},
 		addTransaction: (state, action: PayloadAction<TransactionsPortfolioData>) => {
 			state.transactions = [...state.transactions, action.payload];
 		},

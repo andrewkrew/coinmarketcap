@@ -7,7 +7,7 @@ import { PortfolioBalance } from "../portfolioBalance";
 import { PortfolioDonut } from "../portfolioDonut";
 import styles from './styles.module.css'
 import { fetchPortfolioCurrencyThunk } from "../../redux/portfolioCurrency";
-import { updateTokens } from "../../redux/portfolioData";
+import { updateTokens, updateTransactions } from "../../redux/portfolioData";
 import { findBestInvest, findWhorstInvest, getUniqTokensId, setPortfolioTokens, setPortfolioUpdateData } from "../../utilits";
 import { ModalWindow } from "../ui/modalWindow";
 import { AddTransactionMenu } from "../addTransactionMenu";
@@ -24,23 +24,13 @@ export const Portfolio = () => {
 	const {authorization, id} = useAppSelector(authSelector)
 
 	useEffect(() => {
-		dispatch(fetchPortfolioCurrencyThunk(setPortfolioUpdateData(getUniqTokensId(transactions))))
-	}, [dispatch, transactions, authorization, id])
-
-	useEffect(() => {			
-		if (Object.keys(portfolioCurrencyData).length && !isLoading) {			
-			const updatedTokens = setPortfolioTokens(portfolioCurrencyData, transactions);
-			dispatch(updateTokens(updatedTokens));
-		}
-	}, [dispatch, portfolioCurrencyData, isLoading])
-
-	useEffect(() => {
-		if (authorization && Object.keys(portfolioCurrencyData).length && !isLoading) {
+		if (authorization && !isLoading) {
 			const coinRef = doc(db, "transactions", id);
 			const unsubscribe = onSnapshot(coinRef, (trans) => {
 				if (trans.exists()) {
-					const updatedTokens = setPortfolioTokens(portfolioCurrencyData, trans.data().transactions);
-					dispatch(updateTokens(updatedTokens));
+					dispatch(updateTransactions(trans.data().transactions));
+				} else {
+					dispatch(updateTransactions([]));
 				}
 			});
 
@@ -48,8 +38,19 @@ export const Portfolio = () => {
 				unsubscribe();
 			};
 		}
-	}, [authorization, id, dispatch, portfolioCurrencyData, isLoading]);
+	}, [authorization, id, dispatch]);
 
+
+	useEffect(() => {
+		dispatch(fetchPortfolioCurrencyThunk(setPortfolioUpdateData(getUniqTokensId(transactions))))
+	}, [dispatch, transactions])
+
+	useEffect(() => {			
+		if (Object.keys(portfolioCurrencyData).length && !isLoading) {			
+			const updatedTokens = setPortfolioTokens(portfolioCurrencyData, transactions);
+			dispatch(updateTokens(updatedTokens));
+		}
+	}, [dispatch, portfolioCurrencyData, isLoading])
 
 
 	if (tokens.length === 0 || !tokens) {
