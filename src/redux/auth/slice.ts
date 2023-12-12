@@ -36,6 +36,9 @@ export const authSlice = createSlice({
 			state.refreshToken = '';
 			state.authorization = false;
 			state.error = '';
-		}
+		},
+		setAuthError(state, action) {
+			state.error = action.payload;
+		},
 	},
 })

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../../shared/hooks/useRedux"
 import { authSelector } from "../../../redux/selectors"
 import styles from './styles.module.css'
-import { removeUser } from "../../../redux"
+import { removeUser, setAuthError } from "../../../redux"
 import { MainBtn } from "../mainBtn"
 import { SecondaryBtn } from "../secondaryBtn"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -21,15 +21,20 @@ export const AuthBtn = () => {
 	const {authorization, email} = useAppSelector(authSelector);
 
 	return (
-		<div>
+		<>
 			{!authorization 
 			? <div className={styles.header__login}>
+				<Box onClick={() => dispatch(setAuthError(''))}>
 					<SecondaryBtn>
 						<Link to='/login'>Log In</Link>
 					</SecondaryBtn>
+				</Box>
+				<Box onClick={() => dispatch(setAuthError(''))}>
 					<MainBtn>
 						<Link to='/signup'>Sign Up</Link>
 					</MainBtn>
+				</Box>
+
 				</div> 
 			: <div className={styles.header__logout}>
 					<Tooltip title={`Hi, ${email}!`} arrow>
@@ -40,6 +45,6 @@ export const AuthBtn = () => {
 					</Box>
 				</div>
 			}
-		</div>
+		</>
 	)
 }

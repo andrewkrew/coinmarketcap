@@ -24,14 +24,12 @@ export const SignUpPage = () => {
 				}))
 			})
 			.catch((error) => {
-				const errorCode = error.code;
+				// const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(errorCode);
-				console.log(errorMessage);
 				dispatch(setUser({
 					error: errorMessage,
 				}))
-			dispatch(showMessage(errorCode))
+			dispatch(showMessage(errorMessage));
 			});
 	}
 

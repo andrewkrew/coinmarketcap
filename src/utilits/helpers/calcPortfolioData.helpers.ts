@@ -53,17 +53,20 @@ export const getAverangeCost = (
 }
 
 export const getProfitProcent = (
-	currentBalance: number, 
-	averageBuyCost: number,
-	totalBuyTokens: number,
-	totalSellTokens: number,
-	averageSellCost: number,
+	currentBalance: number, // текущая суммарная стоимость актива
+	averageBuyCost: number, // средняя цена покупки
+	totalBuyTokens: number, // всего куплено токенов
+	totalSellTokens: number, // всего продано токенов
+	averageSellCost: number, // средняя цена продажи
 	): {procent: number, value: number} => {
 
-		const value = currentBalance - totalSellTokens * averageSellCost - totalBuyTokens * averageBuyCost;
+		// профит после покупок и продаж
+		const profitValue = currentBalance - totalSellTokens * averageSellCost - totalBuyTokens * averageBuyCost;
+		
 		return {
-			procent: +((value - totalSellTokens * averageSellCost) * 100 / (totalBuyTokens * averageBuyCost)).toFixed(2),
-			value: +value.toFixed(2),
+			procent: +(((currentBalance - totalSellTokens * averageSellCost) * 100 
+				/ (totalBuyTokens * averageBuyCost))-100).toFixed(2),
+			value: +profitValue.toFixed(2),
 		}
 }
 
@@ -88,16 +91,17 @@ export const getCurrentBalancePortfolio = (tokens: TokensPortfolioData[]) => {
 }
 
 export const getPortfolioProfit = (
-	tokens: TokensPortfolioData[], 
-	totalSell: number,
-	totalCost: number,
-	currentBalance: number,
+	tokens: TokensPortfolioData[], // список монет в портфеле
+	totalSell: number, // сколько было потрачено на покупку
+	totalCost: number, // ссколько было получено при продаже
+	currentBalance: number, // текущий баланс
 	) => {
-	const value = tokens.reduce((sum, item) => {
+	const profitValue = tokens.reduce((sum, item) => {
 		return sum = sum + item.profit.value;
 	}, 0)
+
 	return({
-		value: +value.toFixed(2),
+		value: +profitValue.toFixed(2),
 		procent: +((currentBalance - totalSell) * 100 / totalCost - 100).toFixed(2),
 	}) 
 }
@@ -107,7 +111,6 @@ export const getWithdrawProfit = (tokens: TokensPortfolioData[]) => {
 		return sum = sum + item.averageSellCost * item.totalSellTokens
 	}, 0)
 }
-
 
 export const findBestInvest = (tokens: TokensPortfolioData[]) => {
 	const data = [...tokens];

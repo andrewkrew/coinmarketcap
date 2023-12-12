@@ -17,16 +17,21 @@
 	align-items: center;
 }
 
-.header__siteName{
-	font-size: 25px;
-	font-weight: bold;
+.header__logo{
+	display: block;
+	display: flex;align-items: center;
 	color: var(--color-text);
 	text-decoration: none;
 	transition: color 0.2s ease;
 }
 
-.header__siteName:hover {
-	color: #ff9800;
+.header__logo svg path {
+	fill: var(--color-text);
+	transition: fill 0.2s ease;
+}
+
+.header__logo:hover svg path {
+	fill: #ff9800;
 }
 
 @media (max-width: 900px) {

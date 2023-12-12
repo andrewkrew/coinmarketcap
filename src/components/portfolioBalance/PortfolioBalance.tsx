@@ -29,6 +29,8 @@ export const PortfolioBalance = () => {
 				<ProcentBlock>{portfolio.profit?.procent}</ProcentBlock>
 			</div>
 			<p className={styles.profit}>AT Profit: $ {portfolio.profit?.value}</p>
+			<p className={styles.profit}>Total buy: $ {portfolio.totalCost?.toFixed(2)}</p>
+			<p className={styles.profit}>Total sell: $ {(-portfolio.totalSell)?.toFixed(2)}</p>
 		</div>
 	)
 }

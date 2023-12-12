@@ -13,7 +13,7 @@ export const CurrencyConverter = () => {
 	const [fiatValue, setFiatValue] = useState<string>(coinDetailData.market_data.current_price.usd.toString());
 
 	useEffect(() => {
-		setFiatValue((+tokenValue * +coinDetailData.market_data.current_price.usd).toString())
+		setFiatValue((Math.round(+tokenValue * +coinDetailData.market_data.current_price.usd * 100) / 100).toString())
 	}, [coinDetailData, tokenValue])
 
 	return (

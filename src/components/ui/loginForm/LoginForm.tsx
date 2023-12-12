@@ -2,19 +2,19 @@ import { useLocation, useNavigate } from "react-router-dom"
 import styles from './styles.module.css'
 import { useEffect, useState } from "react";
 import { IconEye, IconEyeClosed } from '@tabler/icons-react';
-import { useAppSelector } from "../../../shared/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "../../../shared/hooks/useRedux";
 import { authSelector } from "../../../redux/selectors";
-// import { loginThunk } from "../../../redux";
 import { Box } from "@mui/material";
 import { MainBtn } from "../mainBtn";
+import { setAuthError, showMessage } from "../../../redux";
 
 export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password: string) => void}) => {
 	
 	const location = useLocation();
 	const navigate = useNavigate();
 	const {authorization, error} = useAppSelector(authSelector)
-	const [errorMsg, setErrorMsg] = useState('');
 	const [passwordType, setPasswordType] = useState('password');
+	const dispatch = useAppDispatch();
 
 	const fromPage = location?.state?.from?.pathname || '/';	
 
@@ -32,18 +32,18 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 		const password = formData.get('password')?.toString();
 
 		if (!email) {
-			setErrorMsg('Please enter your Email');
+			dispatch(setAuthError('Please enter your Email'));
+			dispatch(showMessage('Please enter your Email'));
 			return;
 		}
-		if (password && password?.trim()?.length < 6) {
-			setErrorMsg('Password is less than 6 symbols');
+		if (!password || (password && password?.length < 6)) {
+			dispatch(setAuthError('Password is less than 6 symbols'));
+			dispatch(showMessage('Password is less than 6 symbols'));
 			return;
 		} 
 		
 		if (email && password && password?.trim()?.length >= 6) {
-			// dispatch(loginThunk({login, password}));
 			handleLogin(email, password);
-			setErrorMsg(error as string);
 		}
 	}
 
@@ -63,6 +63,7 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 						placeholder="input your email" 
 						id="email" 
 						className={styles.login__login}
+						onChange={() => dispatch(setAuthError(''))}
 					/>
 				</label>
 
@@ -75,6 +76,7 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 							placeholder="input your password" 
 							id="password"
 							className={styles.login__passwordInput}
+							onChange={() => dispatch(setAuthError(''))}
 						/>
 						<div onClick={toggleType} className={styles.login__eye}>
 						{
@@ -89,8 +91,7 @@ export const LoginForm = ({handleLogin}: {handleLogin: (email: string, password:
 					<MainBtn>Submit</MainBtn>
 				</Box>
 			</form>
-			{/* {error && !authorization ? <p className={styles.login__message}>{errorMsg}</p> : ''} */}
-			{error ? <p className={styles.login__message}>{errorMsg}</p> : ''}
+			{error as string && <p className={styles.login__message}>{error as string}</p> }
 		</div>
 	</section>
 	)
