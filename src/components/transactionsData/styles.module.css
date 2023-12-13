@@ -44,6 +44,12 @@
 	row-gap: 5px;
 }
 
+.trans__actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 @media (max-width: 650px) {
 	
 	.trans__type {

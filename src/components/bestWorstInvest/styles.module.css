@@ -34,6 +34,10 @@
 		padding: 15px 5px;
 	}
 
+	.title {
+		font-size: 16px;
+	}
+
 	.profit {
 		display: flex;
 		flex-direction: column;
