@@ -128,6 +128,7 @@ export interface TokensPortfolioData {
 	profit: ProfitData,
 	profit24h: ProfitData,
 	image: string,
+	procent?: number,
 }
 
 export interface TransactionsPortfolioData {

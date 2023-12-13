@@ -15,7 +15,8 @@ export const PortfolioDonut = () => {
 		<ResponsivePie 
 			data={dataDonut}  
 			margin={width > 550 
-				? { top: 20, right: 200, bottom: 20, left: 20 } 
+				// ? { top: 20, right: 200, bottom: 20, left: 20 } 
+				? { top: 20, right: 150, bottom: 20, left: 0 } 
 				: { top: 20, right: 160, bottom: 20, left: 20 }} 
 			sortByValue={true} 
 			innerRadius={0.6} 
@@ -53,15 +54,15 @@ export const PortfolioDonut = () => {
 					anchor: 'top-right', 
 					direction: 'column', 
 					justify: false, 
-					translateX: 130, 
-					translateY: width > 400 ? 60 : 0, 
-					itemsSpacing: 20, 
+					translateX:  width > 550 ? 60 : 100, 
+					translateY: width > 550 ? 60 : 50, 
+					itemsSpacing:  width > 550 ? 20 : 10, 
 					itemWidth: 50, 
-					itemHeight: 18, 
+					itemHeight: width > 550 ? 18 : 10, 
 					itemTextColor: theme === 'light' ? 'black' : 'white', 
 					itemDirection: 'left-to-right', 
 					itemOpacity: 1, 
-					symbolSize: 30, 
+					symbolSize: width > 550 ? 30 : 15, 
 					symbolShape: 'circle', 
 					effects: [ 
 						{ 

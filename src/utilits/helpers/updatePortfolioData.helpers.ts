@@ -52,15 +52,18 @@ export const setPortfolioTokens = (
 			
 			const currencyData = currency.filter(token => uniqId === token.id)[0];			
 			const transactionsData = transactions.filter(token => uniqId === token.tokenId) 
-			const	totalBuyTokens = getTotalToken(transactionsData, 'buy'); //ok
-			const	totalSellTokens = getTotalToken(transactionsData, 'sell'); //ok
-			const	averageBuyCost = getAverangeCost(transactionsData, 'buy', totalBuyTokens); //ok
-			const	averageSellCost = getAverangeCost(transactionsData, 'sell', totalSellTokens); // ok
-			const currentTokens = +(totalBuyTokens + totalSellTokens).toFixed(4); //ok
-			const averagePrice = +averageBuyCost.toFixed(4); //ok
-			const currentBalance = +(currencyData.current_price * currentTokens).toFixed(2); //ok
+			const	totalBuyTokens = getTotalToken(transactionsData, 'buy'); 
+			const	totalSellTokens = getTotalToken(transactionsData, 'sell'); 
+			const	averageBuyCost = getAverangeCost(transactionsData, 'buy', totalBuyTokens); 
+			const	averageSellCost = getAverangeCost(transactionsData, 'sell', totalSellTokens); 
+			const currentTokens = +(totalBuyTokens + totalSellTokens).toFixed(4);
+			const averagePrice = +averageBuyCost.toFixed(4);
+			const currentBalance = +(currencyData.current_price * currentTokens).toFixed(2);
 			const profit = getProfitProcent(currentBalance, averageBuyCost, totalBuyTokens, totalSellTokens, averageSellCost);
-			const profit24h = getProfitProcent(currentBalance, averageBuyCost, totalBuyTokens, totalSellTokens, averageSellCost);
+			const profit24h = {
+				procent: currencyData?.price_change_percentage_24h,
+				value: currencyData?.price_change_percentage_24h * currentTokens
+			};
 
 			return ({
 				id: uniqId,

@@ -40,7 +40,11 @@
 .donut {
   width: 100%;
   height: 350px;
-  color: #ff9800;
+  color: black;
+}
+
+.donut div{
+  width: 90%;
 }
 
 .invest {
@@ -77,6 +81,10 @@
 	.donut {
 		width: 95%;
 	}
+
+  .donut div{
+    width: 100%;
+  }
 }
 
 @media (max-width: 550px) {
