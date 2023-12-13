@@ -145,7 +145,13 @@ export const AddTransactionMenu = () => {
 					<DatePicker 
 						defaultValue={dayjs()}
 						value={date}
-						sx={{...inputStyle, width: '80%'}}
+						sx={{
+							...inputStyle, 
+							width: '80%',
+							'& .MuiButtonBase-root': {
+								color: '#ff9800',
+							}
+						}}
 						onAccept={(value) => {
 							if (!value) return;
 							setDate(value);
