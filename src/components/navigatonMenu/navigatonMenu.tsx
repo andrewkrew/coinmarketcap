@@ -1,10 +1,14 @@
 import { NavLink } from "react-router-dom"
 import styles from './styles.module.css'
 
-export const NavigatonMenu = () => {
+export const NavigatonMenu = ({setIsActive} : {setIsActive: (prev: boolean) => void}) => {
 	
 	const setActive = ({isActive}: {isActive:boolean}) => {
 		return isActive ? `${styles.header__Link} ${styles.header__ActiveLink}` : `${styles.header__Link}`;
+	}
+
+	const closeBurgerMenu = () => {
+		setIsActive(false);
 	}
 
 	return (
@@ -12,22 +16,26 @@ export const NavigatonMenu = () => {
 			<div className={styles.header__nav}>
 				<NavLink
 					to='/' 
-					className={setActive}>
+					className={setActive}
+					onClick={closeBurgerMenu}>
 					Home
 				</NavLink>
 				<NavLink 
 					to='/currencies' 
-					className={setActive}>
+					className={setActive}
+					onClick={closeBurgerMenu}>
 					Cryptocurrencies
 				</NavLink>
 				<NavLink 
 					to='/exchanges' 
-					className={setActive}>
+					className={setActive}
+					onClick={closeBurgerMenu}>
 					Exchanges
 				</NavLink>
 				<NavLink 
 					to='/portfolio' 
-					className={setActive}>
+					className={setActive}
+					onClick={closeBurgerMenu}>
 					Portfolio
 				</NavLink>
 			</div>

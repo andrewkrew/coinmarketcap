@@ -13,9 +13,9 @@ import { themeSelector } from './redux/selectors';
 import { useLayoutEffect } from 'react';
 import { LoginPage } from './pages/loginPage';
 import { SignUpPage } from './pages/signUpPage/SignUpPage';
-import { ExchangeInfoPage } from './pages/exchangeInfoPage/ExchangeInfoPage';
 import './firebase'
 import { useOffsetY } from './shared/hooks/useOffsetY';
+import { ExchangeInfoPage } from './pages/exchangeInfoPage/exchangeInfoPage';
 
 
 export const App = () => {

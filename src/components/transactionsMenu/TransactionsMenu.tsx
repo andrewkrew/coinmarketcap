@@ -26,7 +26,7 @@ export const TransactionsMenu = ({tokenTransInfoId} : {tokenTransInfoId: string}
 						<img className={styles.token__img} src={token.image} alt={token.name} />
 						<p className={styles.token__price}>$ {token.currentBalance}</p>
 						<div className={styles.token__procent}>
-							<PriceIndicator>{token.profit24h?.procent}</PriceIndicator>
+							<PriceIndicator>{+token.profit24h?.procent?.toFixed(2)}</PriceIndicator>
 						</div>
 					</div>
 					<div className={styles.token__buttons}>

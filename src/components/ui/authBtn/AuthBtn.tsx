@@ -8,7 +8,7 @@ import { SecondaryBtn } from "../secondaryBtn"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Box, Tooltip } from "@mui/material"
 
-export const AuthBtn = () => {
+export const AuthBtn = ({setIsActive} : {setIsActive: (prev: boolean) => void}) => {
 	
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -20,16 +20,26 @@ export const AuthBtn = () => {
 
 	const {authorization, email} = useAppSelector(authSelector);
 
+	const handleClear = () => {
+		dispatch(setAuthError(''));
+		setIsActive(false);
+	}
+
+	const handleLogout = () => {
+		logOut();
+		setIsActive(false);
+	}
+
 	return (
 		<>
 			{!authorization 
 			? <div className={styles.header__login}>
-				<Box onClick={() => dispatch(setAuthError(''))}>
+				<Box onClick={handleClear}>
 					<SecondaryBtn>
 						<Link to='/login'>Log In</Link>
 					</SecondaryBtn>
 				</Box>
-				<Box onClick={() => dispatch(setAuthError(''))}>
+				<Box onClick={handleClear}>
 					<MainBtn>
 						<Link to='/signup'>Sign Up</Link>
 					</MainBtn>
@@ -40,7 +50,7 @@ export const AuthBtn = () => {
 					<Tooltip title={`Hi, ${email}!`} arrow>
 						<AccountCircleIcon fontSize="large" className={styles.header__icon}/>
 					</Tooltip>
-					<Box onClick={() => logOut()}>
+					<Box onClick={handleLogout}>
 						<SecondaryBtn>LogOut</SecondaryBtn>
 					</Box>
 				</div>

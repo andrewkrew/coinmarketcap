@@ -20,16 +20,16 @@ export const Header = () => {
 				</svg>
 			</Link>
 			<div className={styles.header__componentHide}>
-				<NavigatonMenu/>
+				<NavigatonMenu setIsActive={setIsActiveBurger}/>
 			</div>
 			<div className={styles.header__componentHide}>
 				<ThemeToggleBtn/>
 			</div>
 			<div className={styles.header__componentHide}>
-				<AuthBtn/>
+				<AuthBtn setIsActive={setIsActiveBurger}/>
 			</div>
 			<BurgerBtn isActive={isActiveBurger} setIsActive={setIsActiveBurger}/>
-			<BurgerMenu isActive={isActiveBurger}/>
+			<BurgerMenu isActive={isActiveBurger} setIsActive={setIsActiveBurger}/>
 		</div>
 	</header>
 	)
