@@ -43,10 +43,6 @@
   color: black;
 }
 
-.donut div{
-  width: 90%;
-}
-
 .invest {
   display: flex;
   justify-content: flex-end;
@@ -81,10 +77,6 @@
 	.donut {
 		width: 95%;
 	}
-
-  .donut div{
-    width: 100%;
-  }
 }
 
 @media (max-width: 550px) {
