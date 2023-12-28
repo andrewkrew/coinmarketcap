@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { authSelector, portfolioCurrancySelector, portfolioDataSelector } from "../../redux/selectors";
 import { useAppDispatch, useAppSelector } from "../../shared/hooks/useRedux";
 import { BestWorstInvest } from "../bestWorstInvest";
@@ -23,7 +23,7 @@ export const Portfolio = () => {
 	const {tokens, transactions} = useAppSelector(portfolioDataSelector)
 	const {authorization, id} = useAppSelector(authSelector)
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (authorization && !isLoading) {
 			const coinRef = doc(db, "transactions", id);
 			const unsubscribe = onSnapshot(coinRef, (trans) => {

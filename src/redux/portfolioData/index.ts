@@ -6,5 +6,6 @@ export const {
 	addTransaction, 
 	removeTransaction,
 	removeAllTransactions,
+	clearPortfolioState,
 } = portfolioDataSlice.actions;
 export const portfolioDataReducer = portfolioDataSlice.reducer;

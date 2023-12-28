@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../../shared/hooks/useRedux"
 import { authSelector } from "../../../redux/selectors"
 import styles from './styles.module.css'
-import { removeUser, setAuthError } from "../../../redux"
+import { clearPortfolioState, removeUser, setAuthError } from "../../../redux"
 import { MainBtn } from "../mainBtn"
 import { SecondaryBtn } from "../secondaryBtn"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -16,6 +16,7 @@ export const AuthBtn = ({setIsActive} : {setIsActive: (prev: boolean) => void}) 
 	const logOut = () => {
 		dispatch(removeUser());
 		navigate('/', {replace: true});
+		dispatch(clearPortfolioState());
 	}
 
 	const {authorization, email} = useAppSelector(authSelector);

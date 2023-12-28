@@ -98,7 +98,7 @@ export const CurrencyInfoPage = () => {
 			</>
 			: '') 
 			: <Box sx={{
-				width: '100vw', 
+				width: '100%', 
 				height: '80vh', 
 				display: 'flex', 
 				justifyContent: 'center', 

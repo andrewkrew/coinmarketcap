@@ -34,6 +34,11 @@ export const portfolioDataSlice = createSlice({
 		},
 		removeAllTransactions: (state, action: PayloadAction<string>) => {
 			state.transactions = state.transactions.filter(item => item.tokenId !== action.payload);
-		}
+		},
+		clearPortfolioState: (state) => {
+			state.portfolio = {} as PortfolioData;
+			state.tokens = [];
+			state.transactions = [];
+		},
 	}
 })
